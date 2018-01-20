@@ -2,6 +2,7 @@ package com.sa45team7.lussis.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -16,8 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sa45team7.lussis.R;
+import com.sa45team7.lussis.data.UserManager;
 import com.sa45team7.lussis.rest.LUSSISClient;
 import com.sa45team7.lussis.rest.model.Employee;
+import com.sa45team7.lussis.rest.model.LUSSISError;
+import com.sa45team7.lussis.utils.ErrorUtil;
 import com.sa45team7.lussis.utils.InternetConnection;
 
 import java.util.regex.Pattern;
@@ -51,6 +55,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        if (UserManager.getInstance().hasCurrentEmployee()) {
+            Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
+            startActivity(intent);
+        }
+
         // Set up the login form.
         mEmailView = findViewById(R.id.email);
 
@@ -132,9 +142,19 @@ public class LoginActivity extends AppCompatActivity {
             call.enqueue(new Callback<Employee>() {
                 @Override
                 public void onResponse(@NonNull Call<Employee> call, @NonNull Response<Employee> response) {
-                    if (response.body() != null) {
+                    if (response.isSuccessful() && response.body() != null) {
+
+                        UserManager.getInstance().setCurrentEmployee(response.body());
+
+                        Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
+                        startActivity(intent);
+
                         Toast.makeText(LoginActivity.this,
-                                "Login success " + response.body().firstName, Toast.LENGTH_SHORT).show();
+                                "Login success " + response.body().getFirstName(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        LUSSISError error = ErrorUtil.parseError(response);
+                        Toast.makeText(LoginActivity.this,
+                                "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                     showProgress(false);
                 }
@@ -142,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Call<Employee> call, @NonNull Throwable t) {
                     Toast.makeText(LoginActivity.this,
-                            "Login failed " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                            "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     showProgress(false);
                 }
             });

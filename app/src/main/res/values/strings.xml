@@ -20,4 +20,16 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="login_forgot"><u>Forgot your password?</u></string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_approve">Approve</string>
+    <string name="action_reject">Reject</string>
+    <string name="action_logout">Log out</string>
+    <string name="action_home">Home</string>
+    <string name="action_pending_req">Pending Requisitions</string>
+    <string name="action_mydelegate">My Delegate</string>
+    <string name="empty_pending_req">No pending requisition</string>
 </resources>

@@ -9,25 +9,31 @@ import com.google.gson.annotations.SerializedName;
 public class Employee {
 
     @SerializedName("EmpNum")
-    public int empNum ;
+    private int empNum;
 
     @SerializedName("Title")
-    public String title;
+    private String title;
 
     @SerializedName("FirstName")
-    public String firstName;
+    private String firstName;
 
     @SerializedName("LastName")
-    public String lastName;
+    private String lastName;
 
     @SerializedName("EmailAddress")
-    public String emailAddress;
+    private String emailAddress;
 
     @SerializedName("JobTitle")
-    public String jobTitle;
+    private String jobTitle;
 
     @SerializedName("DeptCode")
-    public String deptCode;
+    private String deptCode;
+
+    @SerializedName("DeptName")
+    private String deptName;
+
+    @SerializedName("IsDelegated")
+    private boolean isDelegated;
 
     public int getEmpNum() {
         return empNum;
@@ -77,11 +83,27 @@ public class Employee {
         this.jobTitle = jobTitle;
     }
 
+    public String getDeptName() {
+        return deptName;
+    }
+
     public String getDeptCode() {
         return deptCode;
     }
 
     public void setDeptCode(String deptCode) {
         this.deptCode = deptCode;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    public boolean isDelegated() {
+        return isDelegated;
+    }
+
+    public void setDelegated(boolean delegated) {
+        isDelegated = delegated;
     }
 }

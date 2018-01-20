@@ -21,11 +21,9 @@ public class Stationery {
 
     public String UnitOfMeasure;
 
-    public int CurrentQty;
+    public int AvailableQty;
 
     public String BinNum;
-
-    public int AvailableQty;
 
     public String getItemNum() {
         return itemNum;
@@ -75,12 +73,12 @@ public class Stationery {
         UnitOfMeasure = unitOfMeasure;
     }
 
-    public int getCurrentQty() {
-        return CurrentQty;
+    public int getAvailableQty() {
+        return AvailableQty;
     }
 
-    public void setCurrentQty(int currentQty) {
-        CurrentQty = currentQty;
+    public void setAvailableQty(int availableQty) {
+        AvailableQty = availableQty;
     }
 
     public String getBinNum() {
@@ -91,11 +89,4 @@ public class Stationery {
         BinNum = binNum;
     }
 
-    public int getAvailableQty() {
-        return AvailableQty;
-    }
-
-    public void setAvailableQty(int availableQty) {
-        AvailableQty = availableQty;
-    }
 }
