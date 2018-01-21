@@ -1,5 +1,6 @@
 package com.sa45team7.lussis.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,11 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.sa45team7.lussis.R;
+import com.sa45team7.lussis.activities.PendingReqDetailActivity;
 import com.sa45team7.lussis.adapters.PendingReqAdapter;
 import com.sa45team7.lussis.data.UserManager;
 import com.sa45team7.lussis.rest.LUSSISClient;
+import com.sa45team7.lussis.rest.model.LUSSISResponse;
 import com.sa45team7.lussis.rest.model.Requisition;
+import com.sa45team7.lussis.utils.ErrorUtil;
 import com.sa45team7.lussis.utils.InternetConnection;
 
 import java.util.List;
@@ -23,9 +28,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
+
 public class PendingReqFragment extends Fragment implements PendingReqAdapter.OnPendingReqListInteractionListener {
 
-    private int mColumnCount = 1;
+    public static final int REQUEST_PROCESS = 5;
+
+    private int selectedReqPosition = -1;
 
     private RecyclerView pendingReqListView;
     private SwipeRefreshLayout refreshLayout;
@@ -91,17 +100,44 @@ public class PendingReqFragment extends Fragment implements PendingReqAdapter.On
     }
 
     @Override
-    public void onSelectRequisition(Requisition item) {
+    public void onSelectRequisition(int position, Requisition item) {
+        selectedReqPosition = position;
 
+        Intent intent = new Intent(getContext(), PendingReqDetailActivity.class);
+        String data = new Gson().toJson(item);
+        intent.putExtra("requisition", data);
+        startActivityForResult(intent, REQUEST_PROCESS);
     }
 
     @Override
-    public void onApproveRequisition(Requisition item) {
-
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_PROCESS && resultCode == RESULT_OK) {
+            ((PendingReqAdapter) pendingReqListView.getAdapter()).removeItem(selectedReqPosition);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
-    public void onRejectRequisition(Requisition item) {
+    public void onProcessRequisition(final int position, String status, Requisition item) {
+        int empNum = UserManager.getInstance().getCurrentEmployee().getEmpNum();
+        item.setApprovalRemarks("test");
+        Call<LUSSISResponse> call = LUSSISClient.getApiService().processRequisition(empNum, status, item);
+        call.enqueue(new Callback<LUSSISResponse>() {
+            @Override
+            public void onResponse(Call<LUSSISResponse> call, Response<LUSSISResponse> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    ((PendingReqAdapter) pendingReqListView.getAdapter()).removeItem(position);
+                } else {
+                    String error = ErrorUtil.parseError(response).getMessage();
+                    Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+                }
+            }
 
+            @Override
+            public void onFailure(Call<LUSSISResponse> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

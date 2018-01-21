@@ -1,5 +1,7 @@
 package com.sa45team7.lussis.rest.model;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -9,7 +11,7 @@ import java.util.List;
  * Created by nhatton on 1/20/18.
  */
 
-public class Requisition {
+public class Requisition implements Comparable<Requisition>{
 
     @SerializedName("RequisitionId")
     private int requisitionId;
@@ -97,5 +99,10 @@ public class Requisition {
 
     public void setRequisitionDetails(List<RequisitionDetail> requisitionDetails) {
         this.requisitionDetails = requisitionDetails;
+    }
+
+    @Override
+    public int compareTo(@NonNull Requisition o) {
+        return o.requisitionId - requisitionId;
     }
 }

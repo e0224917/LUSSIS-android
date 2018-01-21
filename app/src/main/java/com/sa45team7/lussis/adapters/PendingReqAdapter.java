@@ -11,6 +11,7 @@ import com.sa45team7.lussis.R;
 import com.sa45team7.lussis.rest.model.Requisition;
 import com.sa45team7.lussis.utils.DateConvertUtil;
 
+import java.util.Collections;
 import java.util.List;
 
 public class PendingReqAdapter extends RecyclerView.Adapter<PendingReqAdapter.PendingReqHolder> {
@@ -20,6 +21,7 @@ public class PendingReqAdapter extends RecyclerView.Adapter<PendingReqAdapter.Pe
 
     public PendingReqAdapter(List<Requisition> items, OnPendingReqListInteractionListener listener) {
         mValues = items;
+        Collections.sort(mValues);
         mListener = listener;
     }
 
@@ -43,7 +45,7 @@ public class PendingReqAdapter extends RecyclerView.Adapter<PendingReqAdapter.Pe
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onApproveRequisition(holder.mItem);
+                    mListener.onProcessRequisition(holder.getAdapterPosition(), "approved", holder.mItem);
                 }
             }
         });
@@ -52,7 +54,7 @@ public class PendingReqAdapter extends RecyclerView.Adapter<PendingReqAdapter.Pe
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onRejectRequisition(holder.mItem);
+                    mListener.onProcessRequisition(holder.getAdapterPosition(), "rejected", holder.mItem);
                 }
             }
         });
@@ -63,7 +65,7 @@ public class PendingReqAdapter extends RecyclerView.Adapter<PendingReqAdapter.Pe
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onSelectRequisition(holder.mItem);
+                    mListener.onSelectRequisition(holder.getAdapterPosition(), holder.mItem);
                 }
             }
         });
@@ -72,6 +74,12 @@ public class PendingReqAdapter extends RecyclerView.Adapter<PendingReqAdapter.Pe
     @Override
     public int getItemCount() {
         return mValues.size();
+    }
+
+    public void removeItem(int position) {
+        mValues.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, mValues.size());
     }
 
     public class PendingReqHolder extends RecyclerView.ViewHolder {
@@ -95,10 +103,8 @@ public class PendingReqAdapter extends RecyclerView.Adapter<PendingReqAdapter.Pe
     }
 
     public interface OnPendingReqListInteractionListener {
-        void onSelectRequisition(Requisition item);
+        void onSelectRequisition(int position, Requisition item);
 
-        void onApproveRequisition(Requisition item);
-
-        void onRejectRequisition(Requisition item);
+        void onProcessRequisition(int position, String status, Requisition item);
     }
 }

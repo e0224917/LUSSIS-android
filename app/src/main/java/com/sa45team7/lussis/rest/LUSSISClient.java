@@ -1,6 +1,7 @@
 package com.sa45team7.lussis.rest;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.security.cert.CertificateException;
 import java.util.concurrent.TimeUnit;
@@ -23,6 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LUSSISClient {
 
     private static final String ROOT_URL = "https://10.211.55.5/LUSSIS/api/";
+//    private static final String ROOT_URL = "https://10.211.55.5:44303/api/";
 
     public static Retrofit getRetrofitInstance() {
         try {
@@ -62,9 +64,13 @@ public class LUSSISClient {
                     })
                     .build();
 
+            Gson gson = new GsonBuilder()
+                    .setDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+                    .create();
+
             return new Retrofit.Builder()
                     .baseUrl(ROOT_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(okHttpClient)
                     .build();
         } catch (Exception e) {
