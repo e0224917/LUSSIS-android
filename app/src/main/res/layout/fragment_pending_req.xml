@@ -4,25 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/pending_refresh_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorBackground">
+    android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/pending_req_list"
-        android:name="com.sa45team7.lussis.fragments.PendingReqFragment"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        app:layoutManager="LinearLayoutManager"
-        tools:context="com.sa45team7.lussis.fragments.PendingReqFragment"
-        tools:listitem="@layout/row_pending_req" />
+        android:layout_height="match_parent">
 
-    <TextView
-        style="@style/Base.TextAppearance.AppCompat.Display2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/empty_pending_req"
-        android:textStyle="bold" />
+        <TextView
+            style="@style/Base.TextAppearance.AppCompat.Display2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/empty_pending_req"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/pending_req_list"
+            android:name="com.sa45team7.lussis.fragments.PendingReqFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackground"
+            android:visibility="gone"
+            app:layoutManager="LinearLayoutManager"
+            tools:context="com.sa45team7.lussis.fragments.PendingReqFragment"
+            tools:listitem="@layout/row_pending_req" />
+
+    </FrameLayout>
+
+
 </android.support.v4.widget.SwipeRefreshLayout>

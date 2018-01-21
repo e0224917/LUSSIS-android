@@ -32,4 +32,8 @@
     <string name="action_pending_req">Pending Requisitions</string>
     <string name="action_mydelegate">My Delegate</string>
     <string name="empty_pending_req">No pending requisition</string>
+    <string name="hint_name">Employee name</string>
+    <string name="hint_start_date">Select start date</string>
+    <string name="hint_end_date">Select end date</string>
+    <string name="empty_delegate">No Delegate</string>
 </resources>

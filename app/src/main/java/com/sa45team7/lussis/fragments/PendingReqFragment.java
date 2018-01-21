@@ -68,8 +68,6 @@ public class PendingReqFragment extends Fragment implements PendingReqAdapter.On
 
         pendingReqListView = view.findViewById(R.id.pending_req_list);
 
-        pendingReqListView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-
         getRequisitionsList();
         return view;
     }
@@ -83,8 +81,10 @@ public class PendingReqFragment extends Fragment implements PendingReqAdapter.On
                 public void onResponse(Call<List<Requisition>> call, Response<List<Requisition>> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         pendingReqListView.setAdapter(new PendingReqAdapter(response.body(), PendingReqFragment.this));
+                        checkListEmpty();
                     } else {
-
+                        String error = ErrorUtil.parseError(response).getMessage();
+                        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
                     }
                     refreshLayout.setRefreshing(false);
                 }
@@ -128,6 +128,7 @@ public class PendingReqFragment extends Fragment implements PendingReqAdapter.On
                 if (response.isSuccessful()) {
                     Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     ((PendingReqAdapter) pendingReqListView.getAdapter()).removeItem(position);
+                    checkListEmpty();
                 } else {
                     String error = ErrorUtil.parseError(response).getMessage();
                     Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
@@ -139,5 +140,10 @@ public class PendingReqFragment extends Fragment implements PendingReqAdapter.On
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void checkListEmpty() {
+        boolean isEmpty = pendingReqListView.getAdapter().getItemCount() == 0;
+        pendingReqListView.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
     }
 }
