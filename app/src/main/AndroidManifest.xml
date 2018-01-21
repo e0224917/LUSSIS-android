@@ -37,8 +37,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.PendingReqDetailActivity"
-            android:parentActivityName=".activities.BaseActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.BaseActivity" />
     </application>
 
 </manifest>

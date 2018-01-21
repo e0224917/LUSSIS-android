@@ -32,4 +32,8 @@
     <string name="action_pending_req">Pending Requisitions</string>
     <string name="action_mydelegate">My Delegate</string>
     <string name="empty_pending_req">No pending requisition</string>
+    <string name="text_remark">Remark:</string>
+    <string name="txt_reason">Reason</string>
+
+
 </resources>
