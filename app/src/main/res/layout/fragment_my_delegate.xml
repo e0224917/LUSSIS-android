@@ -1,36 +1,35 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/delegate_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.sa45team7.lussis.fragments.MyDelegateFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-    <TextView
-        style="@style/Base.TextAppearance.AppCompat.Display2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/empty_delegate"
-        android:textStyle="bold" />
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/delegate_container_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorWhite"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/employee_name_text"
+        <AutoCompleteTextView
+            android:id="@+id/employee_name_auto_complete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
             android:hint="@string/hint_name" />
 
         <EditText
             android:id="@+id/start_date_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/employee_name_auto_complete"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:focusable="false"
             android:hint="@string/hint_start_date"
             android:inputType="date" />
 
@@ -38,11 +37,68 @@
             android:id="@+id/end_date_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/start_date_text"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:focusable="false"
             android:hint="@string/hint_end_date"
             android:inputType="date" />
 
-    </LinearLayout>
-    <!-- TODO: Update blank fragment layout -->
+        <FrameLayout
+            android:id="@+id/assign_button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:background="@color/colorGreen">
 
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/assign_new_button"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/action_assign"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
-</RelativeLayout>
+            <LinearLayout
+                android:id="@+id/buttons_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorBackground">
+
+                <Button
+                    android:id="@+id/revoke_button"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/colorRed"
+                    android:text="@string/action_revoke"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/update_button"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/colorGreen"
+                    android:text="@string/action_update"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>

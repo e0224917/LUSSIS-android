@@ -106,4 +106,13 @@ public class Employee {
     public void setDelegated(boolean delegated) {
         isDelegated = delegated;
     }
+
+    public String getFullName(){
+        return firstName + " " + lastName;
+    }
+
+    @Override
+    public String toString() {
+        return getFullName();
+    }
 }

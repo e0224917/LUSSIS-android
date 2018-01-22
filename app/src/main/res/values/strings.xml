@@ -38,6 +38,11 @@
     <string name="empty_delegate">No Delegate</string>
     <string name="text_remark">Remark:</string>
     <string name="txt_reason">Reason</string>
+    <string name="action_newreq">New Requisition</string>
+    <string name="action_myreq">My Requisitions</string>
+    <string name="action_assign">Assign</string>
+    <string name="action_revoke">Revoke</string>
+    <string name="action_update">Update</string>
 
 
 </resources>
