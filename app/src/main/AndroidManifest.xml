@@ -39,6 +39,7 @@
             android:name=".activities.PendingReqDetailActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".activities.BaseActivity" />
+        <activity android:name=".activities.StationeryDetail"></activity>
     </application>
 
 </manifest>

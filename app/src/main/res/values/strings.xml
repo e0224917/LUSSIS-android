@@ -44,5 +44,40 @@
     <string name="action_revoke">Revoke</string>
     <string name="action_update">Update</string>
 
+    <string name="title_activity_stationery_detail">StationeryDetail</string>
+    <string name="item_number">Item Number</string>
+    <string name="description">Description</string>
+    <string name="category">Category</string>
+    <string name="bin">Bin</string>
+    <string name="current_qty">Current Qty</string>
+    <string name="adjust_stationery_qty">Adjust</string>
 
+    <string-array name="stationery_category">
+        <item>Clip</item>
+        <item>Envelope</item>
+        <item>Eraser</item>
+        <item>Exercise</item>
+        <item>File</item>
+        <item>Pad</item>
+        <item>Paper</item>
+        <item>Pen</item>
+        <item>Puncher</item>
+        <item>Ruler</item>
+        <item>Scissors</item>
+        <item>Sharpener</item>
+        <item>Shorthand</item>
+        <item>Stapler</item>
+        <item>Tacks</item>
+        <item>Tape</item>
+        <item>Tparency</item>
+        <item>Tray</item>
+    </string-array>
+
+    <string-array name="stationery_unit_of_measure">
+        <item>Box</item>
+        <item>Dozen</item>
+        <item>Each</item>
+        <item>Packet</item>
+        <item>Set</item>
+    </string-array>
 </resources>
