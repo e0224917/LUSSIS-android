@@ -51,5 +51,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button stationeryC001Button = findViewById(R.id.stationery_detail_c001);
+        stationeryC001Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, StationeryDetail.class);
+                intent.putExtra("itemNum","C001");
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -29,6 +29,9 @@ public interface LUSSISService {
     @GET("Stationeries/")
     Call<List<Stationery>> getAllStationeries();
 
+    @GET("Stationeries/{id}")
+    Call<Stationery> getStationery(@Path("id") String id);
+
     @FormUrlEncoded
     @POST("auth/Login")
     Call<Employee> login(@Field("Email") String email,
