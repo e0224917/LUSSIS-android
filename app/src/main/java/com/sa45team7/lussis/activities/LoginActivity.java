@@ -151,6 +151,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         Toast.makeText(LoginActivity.this,
                                 "Login success " + response.body().getFirstName(), Toast.LENGTH_SHORT).show();
+                        finish();
                     } else {
                         LUSSISError error = ErrorUtil.parseError(response);
                         Toast.makeText(LoginActivity.this,

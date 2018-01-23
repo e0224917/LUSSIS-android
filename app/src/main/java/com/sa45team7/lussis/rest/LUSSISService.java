@@ -1,6 +1,7 @@
 package com.sa45team7.lussis.rest;
 
 import com.sa45team7.lussis.rest.model.Delegate;
+import com.sa45team7.lussis.rest.model.Disbursement;
 import com.sa45team7.lussis.rest.model.Employee;
 import com.sa45team7.lussis.rest.model.LUSSISResponse;
 import com.sa45team7.lussis.rest.model.Requisition;
@@ -33,6 +34,10 @@ public interface LUSSISService {
     Call<Employee> login(@Field("Email") String email,
                          @Field("Password") String password);
 
+    /**
+     *  Requisitions API
+     */
+
     @GET("Requisitions/Pending/{dept}")
     Call<List<Requisition>> getPendingRequisitions(@Path("dept") String deptCode);
 
@@ -41,6 +46,9 @@ public interface LUSSISService {
                                             @Query("status") String status,
                                             @Body Requisition requisition);
 
+    /**
+     *  Delegate API
+     */
     @GET("Delegate/{dept}")
     Call<Delegate> getDelegate(@Path("dept") String deptCode);
 
@@ -57,4 +65,15 @@ public interface LUSSISService {
 
     @DELETE("Delegate/{dept}")
     Call<LUSSISResponse> deleteDelegate(@Path("dept") String deptcode);
+
+    /**
+     *  Disbursement API
+     */
+    @GET("Disbursement/{dept}")
+    Call<Disbursement> getUpcomingCollection(@Path("dept") String deptCode);
+
+    @POST("Disbursement/{id}")
+    Call<LUSSISResponse> acknowledge(@Path("id") int disbursementId, @Body int empnum);
+
+
 }

@@ -1,5 +1,6 @@
 package com.sa45team7.lussis.activities;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.sa45team7.lussis.R;
 import com.sa45team7.lussis.data.UserManager;
+import com.sa45team7.lussis.fragments.CollectionPointFragment;
 import com.sa45team7.lussis.fragments.HomeFragment;
 import com.sa45team7.lussis.fragments.MyDelegateFragment;
 import com.sa45team7.lussis.fragments.PendingReqFragment;
@@ -67,6 +69,7 @@ public class BaseActivity extends AppCompatActivity
                     navigationView.inflateMenu(R.menu.staff_drawer);
                 break;
             case "rep":
+                navigationView.inflateMenu(R.menu.rep_drawer);
                 break;
             case "head":
                 navigationView.inflateMenu(R.menu.head_drawer);
@@ -97,11 +100,11 @@ public class BaseActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if (getSupportFragmentManager().getFragments().size() > 1) {
-                displayFragment(new HomeFragment());
-            } else {
+//            if (getSupportFragmentManager().getFragments().size() > 1) {
+//                displayFragment(new HomeFragment());
+//            } else {
                 super.onBackPressed();
-            }
+//            }
         }
     }
 
@@ -120,6 +123,13 @@ public class BaseActivity extends AppCompatActivity
                 break;
             case R.id.nav_delegate:
                 displayFragment(new MyDelegateFragment());
+                break;
+            case R.id.nav_collection:
+                displayFragment(new CollectionPointFragment());
+                break;
+            case R.id.nav_scan:
+                Intent intent = new Intent(BaseActivity.this, ScanQRActivity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_logout:
                 UserManager.getInstance().clear();
@@ -149,4 +159,23 @@ public class BaseActivity extends AppCompatActivity
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 }

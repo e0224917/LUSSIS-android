@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by nhatton on 1/20/18.
  */
 
-class RequisitionDetail {
+public class RequisitionDetail {
 
     @SerializedName("Description")
     private String description;

@@ -6,60 +6,69 @@
     android:layout_height="match_parent"
     tools:context="com.sa45team7.lussis.activities.PendingReqDetailActivity">
 
-    <TextView
-        android:id="@+id/requestEmp"
-        android:layout_width="wrap_content"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/header_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="st"
-        android:text="Jenny Wong Mei Lin"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/colorWhite"
+        android:paddingBottom="16dp">
 
-    <TextView
-        android:id="@+id/reqDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Jan 25"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/req_emp_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="st"
+            android:text="Jenny Wong Mei Lin"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/header_parent"
+            app:layout_constraintTop_toTopOf="@id/header_parent" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/text_remark"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/requestEmp" />
+        <TextView
+            android:id="@+id/req_date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Jan 25"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/header_parent"
+            app:layout_constraintTop_toTopOf="@id/header_parent" />
 
-    <TextView
-        android:id="@+id/remark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="16dp"
-        android:text="Exam Revision Stationery"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/requestEmp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/text_remark"
+            app:layout_constraintStart_toStartOf="@id/header_parent"
+            app:layout_constraintTop_toBottomOf="@id/req_emp_text" />
+
+        <TextView
+            android:id="@+id/remark_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="76dp"
+            android:layout_marginTop="16dp"
+            android:text="Exam Revision Stationery"
+            app:layout_constraintStart_toStartOf="@id/header_parent"
+            app:layout_constraintTop_toBottomOf="@id/req_emp_text" />
+    </android.support.constraint.ConstraintLayout>
+
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
+        android:id="@+id/stationery_list_view"
+        android:layout_width="378dp"
         android:layout_height="252dp"
         android:layout_marginTop="8dp"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/row_req_detail"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/remark" />
+        app:layout_constraintTop_toBottomOf="@id/header_parent"
+        tools:listitem="@layout/row_detail_req" />
 
     <EditText
         android:id="@+id/reason_text"
@@ -76,7 +85,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listView"
+        app:layout_constraintTop_toBottomOf="@id/stationery_list_view"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button

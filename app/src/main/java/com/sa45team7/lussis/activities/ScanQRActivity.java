@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +21,16 @@ import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.sa45team7.lussis.R;
+import com.sa45team7.lussis.data.UserManager;
+import com.sa45team7.lussis.rest.LUSSISClient;
+import com.sa45team7.lussis.rest.model.LUSSISResponse;
+import com.sa45team7.lussis.utils.ErrorUtil;
 
 import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ScanQRActivity extends AppCompatActivity {
 
@@ -29,6 +39,7 @@ public class ScanQRActivity extends AppCompatActivity {
     private BarcodeDetector barcode;
     private CameraSource cameraSource;
     private TextView resultText;
+    private String scanResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +69,15 @@ public class ScanQRActivity extends AppCompatActivity {
     private void initViews() {
         cameraView = findViewById(R.id.qr_scanner);
         cameraView.setZOrderMediaOverlay(true);
+
+        Button confirmButton = findViewById(R.id.confirm_button);
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (scanResult != null)
+                    acknowledge();
+            }
+        });
 
         resultText = findViewById(R.id.result_text);
     }
@@ -112,19 +132,45 @@ public class ScanQRActivity extends AppCompatActivity {
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if (barcodes.size() > 0) {
-//                    Intent intent = new Intent();
-//                    intent.putExtra("barcode", barcodes.valueAt(0));
-//                    setResult(RESULT_OK, intent);
-//                    finish();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            resultText.setText(barcodes.valueAt(0).rawValue);
+                            scanResult = barcodes.valueAt(0).rawValue;
+                            resultText.setText("Scanned. Press button to confirm.");
                             cameraSource.release();
                         }
                     });
 
                 }
+            }
+        });
+    }
+
+    private void acknowledge() {
+
+        int empNum = UserManager.getInstance().getCurrentEmployee().getEmpNum();
+
+        int disbursementId = Integer.valueOf(scanResult);
+
+        Call<LUSSISResponse> call = LUSSISClient.getApiService().acknowledge(disbursementId, empNum);
+        call.enqueue(new Callback<LUSSISResponse>() {
+            @Override
+            public void onResponse(Call<LUSSISResponse> call, Response<LUSSISResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(ScanQRActivity.this,
+                            response.message(), Toast.LENGTH_SHORT).show();
+                    setResult(RESULT_OK);
+                    finish();
+                } else {
+                    String error = ErrorUtil.parseError(response).getMessage();
+                    Toast.makeText(ScanQRActivity.this, error, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LUSSISResponse> call, Throwable t) {
+                Toast.makeText(ScanQRActivity.this,
+                        "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

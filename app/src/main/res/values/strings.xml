@@ -23,7 +23,6 @@
     <string name="title_activity_base">BaseActivity</string>
     <string name="login_forgot"><u>Forgot your password?</u></string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_approve">Approve</string>
     <string name="action_reject">Reject</string>
@@ -43,6 +42,11 @@
     <string name="action_assign">Assign</string>
     <string name="action_revoke">Revoke</string>
     <string name="action_update">Update</string>
-
+    <string name="action_collection">Upcoming Collection</string>
+    <string name="action_scan">Scan to Acknowledge</string>
+    <string name="scan_button_text">Scan to Acknowledge</string>
+    <string name="empty_collection">No Upcoming Collection</string>
+    <string name="date_and_time_text">Date and Time</string>
+    <string name="collection_point_text">Collection Point</string>
 
 </resources>

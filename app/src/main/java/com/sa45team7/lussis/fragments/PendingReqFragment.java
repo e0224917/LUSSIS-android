@@ -125,7 +125,7 @@ public class PendingReqFragment extends Fragment implements PendingReqAdapter.On
         call.enqueue(new Callback<LUSSISResponse>() {
             @Override
             public void onResponse(Call<LUSSISResponse> call, Response<LUSSISResponse> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     ((PendingReqAdapter) pendingReqListView.getAdapter()).removeItem(position);
                     checkListEmpty();
