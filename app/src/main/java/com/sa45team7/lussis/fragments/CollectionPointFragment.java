@@ -102,8 +102,10 @@ public class CollectionPointFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     currentDisbursement = response.body();
 
-                    String date = DateConvertUtil.convertForDetail(currentDisbursement.getCollectionDate());
+                    String date = DateConvertUtil.convertForRequisitions(currentDisbursement.getCollectionDate());
                     dateText.setText(date);
+
+                    timeText.setText(currentDisbursement.getCollectionTime());
 
                     collectionName.setText(currentDisbursement.getCollectionPoint());
 

@@ -22,6 +22,7 @@ import com.sa45team7.lussis.data.UserManager;
 import com.sa45team7.lussis.fragments.CollectionPointFragment;
 import com.sa45team7.lussis.fragments.HomeFragment;
 import com.sa45team7.lussis.fragments.MyDelegateFragment;
+import com.sa45team7.lussis.fragments.MyReqFragment;
 import com.sa45team7.lussis.fragments.PendingReqFragment;
 import com.sa45team7.lussis.rest.model.Employee;
 
@@ -131,8 +132,19 @@ public class BaseActivity extends AppCompatActivity
                 Intent intent = new Intent(BaseActivity.this, ScanQRActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_myreq:
+                displayFragment(new MyReqFragment());
+                break;
+            case R.id.nav_stationery:
+                break;
+            case R.id.nav_con_req:
+                break;
+            case R.id.nav_disbursement:
+                break;
             case R.id.nav_logout:
                 UserManager.getInstance().clear();
+                intent = new Intent(BaseActivity.this, LoginActivity.class);
+                startActivity(intent);
                 finish();
                 break;
         }

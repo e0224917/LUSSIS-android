@@ -82,16 +82,16 @@ public class PendingReqAdapter extends RecyclerView.Adapter<PendingReqAdapter.Pe
         notifyItemRangeChanged(position, mValues.size());
     }
 
-    public class PendingReqHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mRequestNameView;
-        public final TextView mRequestDateView;
-        public final TextView mRequestRemarkView;
-        public final Button mApproveButton;
-        public final Button mRejectButton;
-        public Requisition mItem;
+    class PendingReqHolder extends RecyclerView.ViewHolder {
+        final View mView;
+        final TextView mRequestNameView;
+        final TextView mRequestDateView;
+        final TextView mRequestRemarkView;
+        final Button mApproveButton;
+        final Button mRejectButton;
+        Requisition mItem;
 
-        public PendingReqHolder(View view) {
+        PendingReqHolder(View view) {
             super(view);
             mView = view;
             mRequestNameView = view.findViewById(R.id.request_name_text);

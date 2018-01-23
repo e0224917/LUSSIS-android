@@ -48,5 +48,11 @@
     <string name="empty_collection">No Upcoming Collection</string>
     <string name="date_and_time_text">Date and Time</string>
     <string name="collection_point_text">Collection Point</string>
+    <string name="empty_my_req">No Requisition</string>
+    <string name="action_disbursement">Disbursement</string>
+    <string name="action_con_req">Consolidated Requisition</string>
+    <string name="action_stationery">Stationeries</string>
+    <string name="action_generate">Generate Code</string>
+    <string name="empty_disbursement">No Upcoming Disbursement</string>
 
 </resources>

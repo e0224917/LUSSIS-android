@@ -8,8 +8,7 @@
     android:layout_marginEnd="10dp"
     android:layout_marginStart="10dp"
     android:layout_marginTop="5dp"
-    android:background="@drawable/bg_req"
-    android:orientation="horizontal">
+    android:background="@drawable/bg_req">
 
     <TextView
         android:id="@+id/request_name_text"

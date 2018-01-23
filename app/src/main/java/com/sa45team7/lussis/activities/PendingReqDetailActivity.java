@@ -23,6 +23,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 public class PendingReqDetailActivity extends AppCompatActivity {
 
     private EditText reasonText;
@@ -67,6 +70,10 @@ public class PendingReqDetailActivity extends AppCompatActivity {
                 processRequisition("approved");
             }
         });
+
+        boolean isMyReq = getIntent().getBooleanExtra("my_req", false);
+        rejectButton.setVisibility(isMyReq ? GONE : VISIBLE);
+        approveButton.setVisibility(isMyReq ? GONE : VISIBLE);
     }
 
     private void processRequisition(String status) {

@@ -36,8 +36,8 @@ public class PendingReqFragment extends Fragment implements PendingReqAdapter.On
 
     private int selectedReqPosition = -1;
 
-    private RecyclerView pendingReqListView;
     private SwipeRefreshLayout refreshLayout;
+    private RecyclerView pendingReqListView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the

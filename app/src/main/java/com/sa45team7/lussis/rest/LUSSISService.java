@@ -35,19 +35,22 @@ public interface LUSSISService {
                          @Field("Password") String password);
 
     /**
-     *  Requisitions API
+     * Requisitions API
      */
 
     @GET("Requisitions/Pending/{dept}")
     Call<List<Requisition>> getPendingRequisitions(@Path("dept") String deptCode);
 
     @POST("Requisitions/Process")
-    Call<LUSSISResponse> processRequisition(@Query("empnum") int emptNum,
+    Call<LUSSISResponse> processRequisition(@Query("empnum") int empNum,
                                             @Query("status") String status,
                                             @Body Requisition requisition);
 
+    @GET("Requisitions/MyReq/{empnum}")
+    Call<List<Requisition>> getMyRequisitions(@Path("empnum") int empNum);
+
     /**
-     *  Delegate API
+     * Delegate API
      */
     @GET("Delegate/{dept}")
     Call<Delegate> getDelegate(@Path("dept") String deptCode);
@@ -57,18 +60,21 @@ public interface LUSSISService {
 
     @POST("Delegate/{dept}")
     Call<Delegate> postDelegate(@Path("dept") String deptCode,
-                                      @Body Delegate delegate);
+                                @Body Delegate delegate);
 
     @PUT("Delegate/{dept}")
     Call<LUSSISResponse> updateDelegate(@Path("dept") String deptCode,
-                                @Body Delegate delegate);
+                                        @Body Delegate delegate);
 
     @DELETE("Delegate/{dept}")
     Call<LUSSISResponse> deleteDelegate(@Path("dept") String deptcode);
 
     /**
-     *  Disbursement API
+     * Disbursement API
      */
+    @GET("Disbursement/")
+    Call<List<Disbursement>> getDisbursements();
+
     @GET("Disbursement/{dept}")
     Call<Disbursement> getUpcomingCollection(@Path("dept") String deptCode);
 

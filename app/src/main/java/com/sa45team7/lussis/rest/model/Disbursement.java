@@ -23,6 +23,12 @@ public class Disbursement {
     @SerializedName("CollectionDate")
     private Date collectionDate;
 
+    @SerializedName("CollectionTime")
+    private String collectionTime;
+
+    @SerializedName("DepartmentName")
+    private String departmentName;
+
     @SerializedName("DisbursementDetails")
     private List<RequisitionDetail> disbursementDetails;
 
@@ -56,6 +62,22 @@ public class Disbursement {
 
     public void setCollectionDate(Date collectionDate) {
         this.collectionDate = collectionDate;
+    }
+
+    public String getCollectionTime() {
+        return collectionTime;
+    }
+
+    public void setCollectionTime(String collectionTime) {
+        this.collectionTime = collectionTime;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public List<RequisitionDetail> getDisbursementDetails() {
