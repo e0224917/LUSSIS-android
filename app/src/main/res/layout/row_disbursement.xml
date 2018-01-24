@@ -66,7 +66,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/reject_button"
+            android:id="@+id/generate_button"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -74,8 +74,6 @@
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
             android:textSize="16sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="148dp"
-            tools:layout_editor_absoluteY="44dp" />
+            android:textStyle="bold" />
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

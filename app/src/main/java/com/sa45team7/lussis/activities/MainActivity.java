@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         stationeryC001Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, StationeryDetail.class);
+                Intent intent = new Intent(MainActivity.this, StationeryDetailActivity.class);
                 intent.putExtra("itemNum","C001");
                 startActivity(intent);
             }

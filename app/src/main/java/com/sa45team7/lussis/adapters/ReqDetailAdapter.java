@@ -43,14 +43,14 @@ public class ReqDetailAdapter extends RecyclerView.Adapter<ReqDetailAdapter.ReqD
         return mValues.size();
     }
 
-    public class ReqDetailHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView descriptionText;
-        public final TextView qtyText;
-        public final TextView uomText;
-        public RequisitionDetail mItem;
+    class ReqDetailHolder extends RecyclerView.ViewHolder {
+        final View mView;
+        final TextView descriptionText;
+        final TextView qtyText;
+        final TextView uomText;
+        RequisitionDetail mItem;
 
-        public ReqDetailHolder(View view) {
+        ReqDetailHolder(View view) {
             super(view);
             mView = view;
             descriptionText = view.findViewById(R.id.description_text);

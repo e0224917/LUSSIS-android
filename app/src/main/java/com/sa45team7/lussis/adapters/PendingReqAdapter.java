@@ -35,7 +35,7 @@ public class PendingReqAdapter extends RecyclerView.Adapter<PendingReqAdapter.Pe
     @Override
     public void onBindViewHolder(final PendingReqHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mRequestNameView.setText("By " + holder.mItem.getRequisitionEmp());
+        holder.mRequestNameView.setText("By " + holder.mItem.getRequisitionEmp().getFullName());
 
         String displayDate = DateConvertUtil.convertForRequisitions(holder.mItem.getRequisitionDate());
         holder.mRequestDateView.setText(displayDate);

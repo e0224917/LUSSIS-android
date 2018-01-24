@@ -20,20 +20,24 @@ import android.widget.TextView;
 import com.sa45team7.lussis.R;
 import com.sa45team7.lussis.data.UserManager;
 import com.sa45team7.lussis.fragments.CollectionPointFragment;
+import com.sa45team7.lussis.fragments.DisbursementsFragment;
 import com.sa45team7.lussis.fragments.HomeFragment;
 import com.sa45team7.lussis.fragments.MyDelegateFragment;
 import com.sa45team7.lussis.fragments.MyReqFragment;
 import com.sa45team7.lussis.fragments.PendingReqFragment;
+import com.sa45team7.lussis.fragments.RetrievalListFragment;
 import com.sa45team7.lussis.rest.model.Employee;
 
 public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         HomeFragment.OnFragmentInteractionListener {
 
-    private Employee employee;
     private FragmentManager fragmentManager;
     private Toolbar toolbar;
     private DrawerLayout drawer;
+    private NavigationView navigationView;
+
+    private HomeFragment homeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +47,7 @@ public class BaseActivity extends AppCompatActivity
         toolbar.setTitle("Home");
         setSupportActionBar(toolbar);
 
-        employee = UserManager.getInstance().getCurrentEmployee();
+        Employee employee = UserManager.getInstance().getCurrentEmployee();
         String role = employee.getJobTitle();
 
         drawer = findViewById(R.id.drawer_layout);
@@ -52,7 +56,7 @@ public class BaseActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         switch (role) {
             case "clerk":
@@ -82,18 +86,25 @@ public class BaseActivity extends AppCompatActivity
         View headerView = navigationView.getHeaderView(0);
 
         TextView nameText = headerView.findViewById(R.id.employee_name);
-        nameText.setText(employee.getFirstName() + " " + employee.getLastName());
+        nameText.setText(employee.getFullName());
 
         String displayRole = role.substring(0, 1).toUpperCase() + role.substring(1);
         TextView deptText = headerView.findViewById(R.id.employee_role);
         deptText.setText(displayRole);
 
         fragmentManager = getSupportFragmentManager();
-        HomeFragment fragment = new HomeFragment();
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment, fragment.getClass().toString())
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
+
+        //To prevent lost save instance when change orientation
+        if (savedInstanceState == null) {
+            homeFragment = new HomeFragment();
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, homeFragment, homeFragment.getClass().toString())
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .commit();
+            navigationView.setCheckedItem(R.id.nav_home);
+        }
+
     }
 
     @Override
@@ -101,11 +112,12 @@ public class BaseActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-//            if (getSupportFragmentManager().getFragments().size() > 1) {
-//                displayFragment(new HomeFragment());
-//            } else {
+            if (fragmentManager.findFragmentByTag(HomeFragment.class.toString()) == null) {
+                navigationView.setCheckedItem(R.id.nav_home);
+                displayFragment(homeFragment);
+            } else {
                 super.onBackPressed();
-//            }
+            }
         }
     }
 
@@ -117,7 +129,7 @@ public class BaseActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.nav_home:
-                displayFragment(new HomeFragment());
+                displayFragment(homeFragment);
                 break;
             case R.id.nav_pendingreq:
                 displayFragment(new PendingReqFragment());
@@ -137,9 +149,11 @@ public class BaseActivity extends AppCompatActivity
                 break;
             case R.id.nav_stationery:
                 break;
-            case R.id.nav_con_req:
+            case R.id.nav_retrieve:
+                displayFragment(new RetrievalListFragment());
                 break;
             case R.id.nav_disbursement:
+                displayFragment(new DisbursementsFragment());
                 break;
             case R.id.nav_logout:
                 UserManager.getInstance().clear();
@@ -171,23 +185,4 @@ public class BaseActivity extends AppCompatActivity
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
 }

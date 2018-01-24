@@ -10,15 +10,15 @@
             android:title="@string/action_home" />
         <item
             android:id="@+id/nav_stationery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_menu_stationery"
             android:title="@string/action_stationery" />
         <item
-            android:id="@+id/nav_con_req"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/action_con_req" />
+            android:id="@+id/nav_retrieve"
+            android:icon="@drawable/ic_menu_retrieval"
+            android:title="@string/action_retrieve" />
         <item
             android:id="@+id/nav_disbursement"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_menu_disbursement"
             android:title="@string/action_disbursement" />
     </group>
 

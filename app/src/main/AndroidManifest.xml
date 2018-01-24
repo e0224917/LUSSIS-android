@@ -36,6 +36,7 @@
         </activity>
         <activity
             android:name=".activities.GenerateQRActivity"
+            android:label="Disbursement Detail"
             android:launchMode="singleTop"
             android:parentActivityName=".activities.BaseActivity" />
         <activity
@@ -46,7 +47,11 @@
             android:name=".activities.PendingReqDetailActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".activities.BaseActivity" />
-        <activity android:name=".activities.StationeryDetail"></activity>
+        <activity
+            android:name=".activities.StationeryDetailActivity"
+            android:label="Stationery Detail"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.BaseActivity" />
     </application>
 
 </manifest>

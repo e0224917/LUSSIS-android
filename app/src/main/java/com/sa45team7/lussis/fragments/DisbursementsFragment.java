@@ -1,6 +1,7 @@
 package com.sa45team7.lussis.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -8,10 +9,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.sa45team7.lussis.R;
+import com.sa45team7.lussis.activities.GenerateQRActivity;
+import com.sa45team7.lussis.adapters.DisbursementAdapter;
 import com.sa45team7.lussis.rest.LUSSISClient;
 import com.sa45team7.lussis.rest.model.Disbursement;
+import com.sa45team7.lussis.utils.ErrorUtil;
 
 import java.util.List;
 
@@ -22,8 +28,9 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DisbursementsFragment extends Fragment {
+public class DisbursementsFragment extends Fragment implements DisbursementAdapter.OnDisbursementListInteractionListener {
 
+    private static final int REQUEST_GENERATE = 7;
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView disbursementListView;
 
@@ -46,8 +53,17 @@ public class DisbursementsFragment extends Fragment {
 
         disbursementListView = view.findViewById(R.id.disbursement_list);
 
+        getList();
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_GENERATE) {
+            getList();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void getList() {
@@ -55,12 +71,24 @@ public class DisbursementsFragment extends Fragment {
         call.enqueue(new Callback<List<Disbursement>>() {
             @Override
             public void onResponse(Call<List<Disbursement>> call, Response<List<Disbursement>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    DisbursementAdapter adapter = new DisbursementAdapter(response.body(),
+                            DisbursementsFragment.this);
 
+                    disbursementListView.setAdapter(adapter);
+                    checkListEmpty();
+                } else {
+                    String error = ErrorUtil.parseError(response).getMessage();
+                    Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+                }
+                refreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onFailure(Call<List<Disbursement>> call, Throwable t) {
-
+                Toast.makeText(getContext(),
+                        "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                refreshLayout.setRefreshing(false);
             }
         });
     }
@@ -68,5 +96,13 @@ public class DisbursementsFragment extends Fragment {
     private void checkListEmpty() {
         boolean isEmpty = disbursementListView.getAdapter().getItemCount() == 0;
         disbursementListView.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+    }
+
+    @Override
+    public void onSelectDisbursement(int position, Disbursement item) {
+        Intent intent = new Intent(getContext(), GenerateQRActivity.class);
+        String data = new Gson().toJson(item);
+        intent.putExtra("disbursement", data);
+        startActivityForResult(intent, REQUEST_GENERATE);
     }
 }

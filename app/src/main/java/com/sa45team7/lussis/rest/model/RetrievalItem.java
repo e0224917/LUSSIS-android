@@ -3,34 +3,29 @@ package com.sa45team7.lussis.rest.model;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by nhatton on 1/17/18.
+ * Created by nhatton on 1/23/18.
  */
 
-public class Stationery {
+public class RetrievalItem {
 
     @SerializedName("ItemNum")
     private String itemNum;
 
-    @SerializedName("Category")
-    public String category;
+    @SerializedName("BinNum")
+    private String binNum;
 
     @SerializedName("Description")
-    public String description;
-
-    @SerializedName("ReorderLevel")
-    private int reorderLevel;
-
-    @SerializedName("ReorderQty")
-    private int reorderQty;
+    private String description;
 
     @SerializedName("UnitOfMeasure")
     private String unitOfMeasure;
 
+    //In stock
     @SerializedName("AvailableQty")
-    public int availableQty;
+    private int availableQty;
 
-    @SerializedName("BinNum")
-    public String binNum;
+    @SerializedName("RequestedQty")
+    private int requestedQty;
 
     public String getItemNum() {
         return itemNum;
@@ -40,12 +35,12 @@ public class Stationery {
         this.itemNum = itemNum;
     }
 
-    public String getCategory() {
-        return category;
+    public String getBinNum() {
+        return binNum;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setBinNum(String binNum) {
+        this.binNum = binNum;
     }
 
     public String getDescription() {
@@ -54,22 +49,6 @@ public class Stationery {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getReorderLevel() {
-        return reorderLevel;
-    }
-
-    public void setReorderLevel(int reorderLevel) {
-        this.reorderLevel = reorderLevel;
-    }
-
-    public int getReorderQty() {
-        return reorderQty;
-    }
-
-    public void setReorderQty(int reorderQty) {
-        this.reorderQty = reorderQty;
     }
 
     public String getUnitOfMeasure() {
@@ -88,12 +67,11 @@ public class Stationery {
         this.availableQty = availableQty;
     }
 
-    public String getBinNum() {
-        return binNum;
+    public int getRequestedQty() {
+        return requestedQty;
     }
 
-    public void setBinNum(String binNum) {
-        this.binNum = binNum;
+    public void setRequestedQty(int requestedQty) {
+        this.requestedQty = requestedQty;
     }
-
 }

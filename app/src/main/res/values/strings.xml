@@ -50,7 +50,7 @@
     <string name="collection_point_text">Collection Point</string>
     <string name="empty_my_req">No Requisition</string>
     <string name="action_disbursement">Disbursement</string>
-    <string name="action_con_req">Consolidated Requisition</string>
+    <string name="action_retrieve">Retrieval List</string>
     <string name="action_stationery">Stationeries</string>
     <string name="action_generate">Generate Code</string>
     <string name="empty_disbursement">No Upcoming Disbursement</string>
@@ -61,7 +61,19 @@
     <string name="category">Category</string>
     <string name="bin">Bin</string>
     <string name="current_qty">Current Qty</string>
-    <string name="adjust_stationery_qty">Adjust</string>
+    <string name="adjust_stationery_qty">Submit Adjustment</string>
+    <string name="department_text">Department</string>
+    <string name="stationery_text">Stationery</string>
+    <string name="qty_to_collect_text">Qty to Collect</string>
+    <string name="empty_retrieval_list">No Retrieval List</string>
+    <string name="employee_text">Employee</string>
+    <string name="start_date_text">Start date</string>
+    <string name="end_date_text">End date</string>
+    <string name="action_adjust">Adjust</string>
+    <string name="add_text">Add</string>
+    <string name="remove_text">Remove</string>
+    <string name="ok_text">OK</string>
+    <string name="cancel_text">Cancel</string>
 
     <string-array name="stationery_category">
         <item>Clip</item>

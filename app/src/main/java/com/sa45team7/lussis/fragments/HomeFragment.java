@@ -3,12 +3,19 @@ package com.sa45team7.lussis.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 
 import com.sa45team7.lussis.R;
+import com.sa45team7.lussis.adapters.HomeAdapter;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,12 +31,24 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        GridView gridView = view.findViewById(R.id.gridview);
+
+        Menu menu = ((NavigationView) getActivity().findViewById(R.id.nav_view)).getMenu();
+        ArrayList<MenuItem> list = new ArrayList<>();
+        for (int i = 0; i < menu.size() - 1; i++) {
+            list.add(menu.getItem(i));
+        }
+
+        HomeAdapter adapter = new HomeAdapter(getContext(), R.layout.grid_item, list);
+
+        gridView.setAdapter(adapter);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

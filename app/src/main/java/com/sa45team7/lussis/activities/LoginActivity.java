@@ -2,10 +2,13 @@ package com.sa45team7.lussis.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,6 +24,7 @@ import com.sa45team7.lussis.data.UserManager;
 import com.sa45team7.lussis.rest.LUSSISClient;
 import com.sa45team7.lussis.rest.model.Employee;
 import com.sa45team7.lussis.rest.model.LUSSISError;
+import com.sa45team7.lussis.rest.model.LUSSISResponse;
 import com.sa45team7.lussis.utils.ErrorUtil;
 import com.sa45team7.lussis.utils.InternetConnection;
 
@@ -86,6 +90,65 @@ public class LoginActivity extends AppCompatActivity {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        TextView forgotPasswordTextView = findViewById(R.id.forgot_link);
+        forgotPasswordTextView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createDialog();
+            }
+        });
+    }
+
+    private void createDialog(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Forgot password");
+
+        final EditText emailInput = new EditText(this);
+        emailInput.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(emailInput);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String email = emailInput.getText().toString();
+                requestReset(email);
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    private void requestReset(String email) {
+        Call<LUSSISResponse> call = LUSSISClient.getApiService().forgot(email);
+        call.enqueue(new Callback<LUSSISResponse>() {
+            @Override
+            public void onResponse(Call<LUSSISResponse> call, Response<LUSSISResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(LoginActivity.this,
+                            response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                    LUSSISError error = ErrorUtil.parseError(response);
+                    Toast.makeText(LoginActivity.this,
+                            "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<LUSSISResponse> call, Throwable t) {
+                Toast.makeText(LoginActivity.this,
+                        "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                showProgress(false);
+            }
+        });
     }
 
     /**

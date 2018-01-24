@@ -40,7 +40,7 @@ public class PendingReqDetailActivity extends AppCompatActivity {
         requisition = new Gson().fromJson(data, Requisition.class);
 
         TextView reqNameText = findViewById(R.id.req_emp_text);
-        reqNameText.setText(requisition.getRequisitionEmp());
+        reqNameText.setText(requisition.getRequisitionEmp().getFullName());
 
         TextView reqDateText = findViewById(R.id.req_date_text);
         String date = DateConvertUtil.convertForDetail(requisition.getRequisitionDate());
@@ -77,11 +77,11 @@ public class PendingReqDetailActivity extends AppCompatActivity {
     }
 
     private void processRequisition(String status) {
-        int empNum = UserManager.getInstance().getCurrentEmployee().getEmpNum();
-
         requisition.setApprovalRemarks(reasonText.getText().toString());
+        requisition.setApprovalEmp(UserManager.getInstance().getCurrentEmployee());
+        requisition.setStatus(status);
 
-        Call<LUSSISResponse> call = LUSSISClient.getApiService().processRequisition(empNum, status, requisition);
+        Call<LUSSISResponse> call = LUSSISClient.getApiService().processRequisition(requisition);
         call.enqueue(new Callback<LUSSISResponse>() {
             @Override
             public void onResponse(Call<LUSSISResponse> call, Response<LUSSISResponse> response) {

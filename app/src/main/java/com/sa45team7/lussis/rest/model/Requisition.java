@@ -17,7 +17,7 @@ public class Requisition implements Comparable<Requisition>{
     private int requisitionId;
 
     @SerializedName("RequisitionEmp")
-    private String requisitionEmp;
+    private Employee requisitionEmp;
 
     @SerializedName("RequisitionDate")
     private Date requisitionDate;
@@ -26,7 +26,7 @@ public class Requisition implements Comparable<Requisition>{
     private String requestRemarks;
 
     @SerializedName("ApprovalEmp")
-    private String approvalEmp;
+    private Employee approvalEmp;
 
     @SerializedName("ApprovalRemarks")
     private String approvalRemarks;
@@ -45,11 +45,11 @@ public class Requisition implements Comparable<Requisition>{
         this.requisitionId = requisitionId;
     }
 
-    public String getRequisitionEmp() {
+    public Employee getRequisitionEmp() {
         return requisitionEmp;
     }
 
-    public void setRequisitionEmp(String requisitionEmp) {
+    public void setRequisitionEmp(Employee requisitionEmp) {
         this.requisitionEmp = requisitionEmp;
     }
 
@@ -69,11 +69,11 @@ public class Requisition implements Comparable<Requisition>{
         this.requestRemarks = requestRemarks;
     }
 
-    public String getApprovalEmp() {
+    public Employee getApprovalEmp() {
         return approvalEmp;
     }
 
-    public void setApprovalEmp(String approvalEmp) {
+    public void setApprovalEmp(Employee approvalEmp) {
         this.approvalEmp = approvalEmp;
     }
 

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,7 @@ import com.sa45team7.lussis.R;
 import com.sa45team7.lussis.activities.PendingReqDetailActivity;
 import com.sa45team7.lussis.adapters.PendingReqAdapter;
 import com.sa45team7.lussis.data.UserManager;
+import com.sa45team7.lussis.dialogs.ConfirmDialog;
 import com.sa45team7.lussis.rest.LUSSISClient;
 import com.sa45team7.lussis.rest.model.LUSSISResponse;
 import com.sa45team7.lussis.rest.model.Requisition;
@@ -30,11 +30,13 @@ import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
-public class PendingReqFragment extends Fragment implements PendingReqAdapter.OnPendingReqListInteractionListener {
+public class PendingReqFragment extends Fragment
+        implements PendingReqAdapter.OnPendingReqListInteractionListener, ConfirmDialog.OnConfirmDialogListener {
 
     public static final int REQUEST_PROCESS = 5;
 
     private int selectedReqPosition = -1;
+    private Requisition selectedReq;
 
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView pendingReqListView;
@@ -69,7 +71,23 @@ public class PendingReqFragment extends Fragment implements PendingReqAdapter.On
         pendingReqListView = view.findViewById(R.id.pending_req_list);
 
         getRequisitionsList();
+
         return view;
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_PROCESS && resultCode == RESULT_OK) {
+            ((PendingReqAdapter) pendingReqListView.getAdapter()).removeItem(selectedReqPosition);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        selectedReq = null;
     }
 
     private void getRequisitionsList() {
@@ -99,35 +117,14 @@ public class PendingReqFragment extends Fragment implements PendingReqAdapter.On
         }
     }
 
-    @Override
-    public void onSelectRequisition(int position, Requisition item) {
-        selectedReqPosition = position;
-
-        Intent intent = new Intent(getContext(), PendingReqDetailActivity.class);
-        String data = new Gson().toJson(item);
-        intent.putExtra("requisition", data);
-        startActivityForResult(intent, REQUEST_PROCESS);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_PROCESS && resultCode == RESULT_OK) {
-            ((PendingReqAdapter) pendingReqListView.getAdapter()).removeItem(selectedReqPosition);
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void onProcessRequisition(final int position, String status, Requisition item) {
-        int empNum = UserManager.getInstance().getCurrentEmployee().getEmpNum();
-        item.setApprovalRemarks("test");
-        Call<LUSSISResponse> call = LUSSISClient.getApiService().processRequisition(empNum, status, item);
+    private void processRequisition() {
+        Call<LUSSISResponse> call = LUSSISClient.getApiService().processRequisition(selectedReq);
         call.enqueue(new Callback<LUSSISResponse>() {
             @Override
             public void onResponse(Call<LUSSISResponse> call, Response<LUSSISResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    ((PendingReqAdapter) pendingReqListView.getAdapter()).removeItem(position);
+                    ((PendingReqAdapter) pendingReqListView.getAdapter()).removeItem(selectedReqPosition);
                     checkListEmpty();
                 } else {
                     String error = ErrorUtil.parseError(response).getMessage();
@@ -140,6 +137,40 @@ public class PendingReqFragment extends Fragment implements PendingReqAdapter.On
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onSelectRequisition(int position, Requisition item) {
+        selectedReqPosition = position;
+
+        Intent intent = new Intent(getContext(), PendingReqDetailActivity.class);
+        String data = new Gson().toJson(item);
+        intent.putExtra("requisition", data);
+        startActivityForResult(intent, REQUEST_PROCESS);
+    }
+
+    @Override
+    public void onProcessRequisition(int position, String status, Requisition item) {
+        selectedReqPosition = position;
+        selectedReq = item;
+        selectedReq.setStatus(status);
+        selectedReq.setApprovalEmp(UserManager.getInstance().getCurrentEmployee());
+
+        ConfirmDialog dialog = new ConfirmDialog();
+        dialog.show(getFragmentManager(), "confirm_dialog");
+
+    }
+
+    @Override
+    public void onOkButtonClick(String reason) {
+        selectedReq.setApprovalRemarks(reason);
+        processRequisition();
+    }
+
+    @Override
+    public void onCancelButtonClick() {
+        selectedReq = null;
+        selectedReqPosition = -1;
     }
 
     private void checkListEmpty() {

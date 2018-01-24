@@ -2,6 +2,7 @@ package com.sa45team7.lussis.fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -60,7 +61,7 @@ public class MyReqFragment extends Fragment {
         Call<List<Requisition>> call = LUSSISClient.getApiService().getMyRequisitions(empNum);
         call.enqueue(new Callback<List<Requisition>>() {
             @Override
-            public void onResponse(Call<List<Requisition>> call, Response<List<Requisition>> response) {
+            public void onResponse(@NonNull Call<List<Requisition>> call, @NonNull Response<List<Requisition>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     MyReqAdapter adapter = new MyReqAdapter(response.body());
                     myReqListView.setAdapter(adapter);
@@ -73,7 +74,7 @@ public class MyReqFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<Requisition>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<Requisition>> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                 refreshLayout.setRefreshing(false);
             }

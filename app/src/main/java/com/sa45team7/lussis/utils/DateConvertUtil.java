@@ -13,7 +13,7 @@ public class DateConvertUtil {
 
     private static final SimpleDateFormat formatFromServer = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
     private static final SimpleDateFormat formatForRequisitions = new SimpleDateFormat("MMM d", Locale.US);
-    private static final SimpleDateFormat formatForDetailDate = new SimpleDateFormat("dd MMM yyyy", Locale.US);
+    private static final SimpleDateFormat formatForDetailDate = new SimpleDateFormat("EEE, d MMM", Locale.US);
 
     static {
         formatFromServer.setTimeZone(TimeZone.getTimeZone("UTC"));

@@ -3,6 +3,8 @@ package com.sa45team7.lussis.fragments;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -14,7 +16,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.sa45team7.lussis.R;
@@ -33,6 +34,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static java.lang.System.currentTimeMillis;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -41,13 +44,15 @@ public class MyDelegateFragment extends Fragment {
     private String deptCode;
     private SwipeRefreshLayout refreshLayout;
     private AutoCompleteTextView empNameView;
-    private EditText startDateView;
-    private EditText endDateView;
+    private TextInputLayout startDateLayout;
+    private TextInputLayout endDateLayout;
+    private TextInputEditText startDateView;
+    private TextInputEditText endDateView;
     private Employee chosenEmployee;
     private Calendar startCalendar = Calendar.getInstance();
     private Calendar endCalendar = Calendar.getInstance();
     private Button assignButton;
-    private LinearLayout buttonsLayout;
+    private Button revokeButton;
 
     private Delegate currentDelegate;
 
@@ -73,6 +78,9 @@ public class MyDelegateFragment extends Fragment {
         empNameView = view.findViewById(R.id.employee_name_auto_complete);
         fetchEmployeeList();
 
+        startDateLayout = view.findViewById(R.id.start_date_layout);
+        endDateLayout = view.findViewById(R.id.end_date_layout);
+
         startDateView = view.findViewById(R.id.start_date_text);
         endDateView = view.findViewById(R.id.end_date_text);
         setUpDatePicker(startDateView, startCalendar);
@@ -82,13 +90,12 @@ public class MyDelegateFragment extends Fragment {
         assignButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assignNewDelegate();
+                if (isValid())
+                    assignNewDelegate();
             }
         });
 
-        buttonsLayout = view.findViewById(R.id.buttons_layout);
-
-        Button revokeButton = view.findViewById(R.id.revoke_button);
+        revokeButton = view.findViewById(R.id.revoke_button);
         revokeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,16 +103,36 @@ public class MyDelegateFragment extends Fragment {
             }
         });
 
-        Button updateButton = view.findViewById(R.id.update_button);
-        updateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateDelegate();
-            }
-        });
-
         getDelegate();
         return view;
+    }
+
+    private boolean isValid() {
+        boolean isValid = true;
+
+        empNameView.setError(null);
+        startDateLayout.setError(null);
+        endDateLayout.setError(null);
+
+        if (empNameView.getText().toString().isEmpty()) {
+            empNameView.setError(getString(R.string.error_field_required));
+            isValid = false;
+        } else if (chosenEmployee == null) {
+            empNameView.setError("Wrong employee name.");
+            isValid = false;
+        }
+
+        if (startCalendar.after(endCalendar)) {
+            startDateLayout.setError("Start date must be before end date.");
+            endDateLayout.setError("End date must be after start date.");
+            isValid = false;
+        } else if (startCalendar.equals(endCalendar)) {
+            startDateLayout.setError("Start date and end date must not be the same.");
+            endDateLayout.setError("Start date and end date must not be the same.");
+            isValid = false;
+        }
+
+        return isValid;
     }
 
     private void setUpDatePicker(final EditText dateView, final Calendar calendar) {
@@ -125,9 +152,11 @@ public class MyDelegateFragment extends Fragment {
         dateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(getContext(), dateListener, calendar
+                DatePickerDialog dialog = new DatePickerDialog(getContext(), dateListener, calendar
                         .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH)).show();
+                        calendar.get(Calendar.DAY_OF_MONTH));
+                dialog.getDatePicker().setMinDate(currentTimeMillis());
+                dialog.show();
             }
         });
     }
@@ -146,7 +175,7 @@ public class MyDelegateFragment extends Fragment {
                     startDateView.setText(startDate);
 
                     String endDate = DateConvertUtil.convertForDetail(currentDelegate.getEndDate());
-                    startDateView.setText(endDate);
+                    endDateView.setText(endDate);
 
                 } else {
                     currentDelegate = null;
@@ -231,33 +260,6 @@ public class MyDelegateFragment extends Fragment {
         });
     }
 
-    private void updateDelegate() {
-        updateCurrentDelegate();
-
-        Call<LUSSISResponse> call = LUSSISClient.getApiService().updateDelegate(deptCode, currentDelegate);
-        call.enqueue(new Callback<LUSSISResponse>() {
-            @Override
-            public void onResponse(Call<LUSSISResponse> call, Response<LUSSISResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
-                } else {
-                    String error = ErrorUtil.parseError(response).getMessage();
-                    Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
-                }
-
-                showButtons();
-            }
-
-            @Override
-            public void onFailure(Call<LUSSISResponse> call, Throwable t) {
-                Toast.makeText(getContext(),
-                        "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                refreshLayout.setRefreshing(false);
-            }
-        });
-    }
-
     private void revokeDelegate() {
         Call<LUSSISResponse> call = LUSSISClient.getApiService().deleteDelegate(deptCode);
         call.enqueue(new Callback<LUSSISResponse>() {
@@ -284,13 +286,16 @@ public class MyDelegateFragment extends Fragment {
     }
 
     private void updateCurrentDelegate() {
-        if(currentDelegate == null) currentDelegate = new Delegate();
+        if (currentDelegate == null) currentDelegate = new Delegate();
         currentDelegate.setEmployee(chosenEmployee);
         currentDelegate.setStartDate(startCalendar.getTime());
         currentDelegate.setEndDate(endCalendar.getTime());
     }
 
     private void showButtons() {
-        buttonsLayout.setVisibility(currentDelegate == null ? View.GONE : View.VISIBLE);
+        revokeButton.setVisibility(currentDelegate == null ? View.GONE : View.VISIBLE);
+        empNameView.setEnabled(currentDelegate == null);
+        startDateView.setEnabled(currentDelegate == null);
+        endDateView.setEnabled(currentDelegate == null);
     }
 }
