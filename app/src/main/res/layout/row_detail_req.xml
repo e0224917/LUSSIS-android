@@ -12,19 +12,23 @@
         android:id="@+id/description_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:text="Clips Double 2" />
+        android:layout_weight="1"
+        android:text="Clips Double 2"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/qty_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:text="10" />
+        android:layout_marginEnd="10dp"
+        android:text="10"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/uom_text"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:text="Box" />
+        android:text="Box"
+        android:textAlignment="textEnd"
+        android:textSize="16sp" />
 </LinearLayout>

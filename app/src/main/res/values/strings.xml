@@ -77,6 +77,7 @@
     <string name="action_confirm_received">Confirm received</string>
     <string name="action_retry">Retry</string>
     <string name="action_hide">Hide</string>
+    <string name="zero_number">0</string>
 
     <string-array name="stationery_category">
         <item>Clip</item>

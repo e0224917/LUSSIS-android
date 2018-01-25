@@ -28,11 +28,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
+import static com.sa45team7.lussis.dialogs.AdjustDialog.REQUEST_ADJUST;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class RetrievalListFragment extends Fragment
-        implements RetrievalAdapter.OnRetrievalListInteractionListener, AdjustDialog.OnAdjustDialogListener {
+        implements RetrievalAdapter.OnRetrievalListInteractionListener {
 
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView retrievalListView;
@@ -121,24 +124,23 @@ public class RetrievalListFragment extends Fragment
 
     @Override
     public void onSelectAdjust(RetrievalItem item) {
-        AdjustDialog dialog = new AdjustDialog();
         selectedItemNum = item.getItemNum();
+
+        AdjustDialog dialog = new AdjustDialog();
+        dialog.setTargetFragment(this, REQUEST_ADJUST);
         dialog.show(getFragmentManager(), "adjust_dialog");
     }
 
     @Override
-    public void onOkButtonClick(int number, String reason) {
-        Adjustment adjustment = new Adjustment();
-        adjustment.setItemNum(selectedItemNum);
-        adjustment.setQuantity(number);
-        adjustment.setReason(reason);
-        adjustment.setRequestEmpNum(UserManager.getInstance().getCurrentEmployee().getEmpNum());
-        adjustStock(adjustment);
-    }
-
-    @Override
-    public void onCancelButtonClick() {
-
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_ADJUST && resultCode == RESULT_OK) {
+            Adjustment adjustment = new Adjustment();
+            adjustment.setItemNum(selectedItemNum);
+            adjustment.setQuantity(data.getIntExtra("number", 0));
+            adjustment.setReason(data.getStringExtra("reason"));
+            adjustment.setRequestEmpNum(UserManager.getInstance().getCurrentEmployee().getEmpNum());
+            adjustStock(adjustment);
+        }
     }
 
     private void checkListEmpty() {

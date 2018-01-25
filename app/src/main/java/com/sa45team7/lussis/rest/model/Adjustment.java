@@ -14,14 +14,14 @@ public class Adjustment {
     @SerializedName("Quantity")
     private int quantity;
 
-    @SerializedName("Remark")
+    @SerializedName("Reason")
     private String reason;
 
     @SerializedName("RequestEmpNum")
     private int requestEmpNum;
 
-    @SerializedName("ApprovalEmpnum")
-    private int approvalEmpnum;
+    @SerializedName("ApprovalEmpNum")
+    private int approvalEmpNum;
 
     @SerializedName("Remark")
     private String remark;
@@ -58,12 +58,12 @@ public class Adjustment {
         this.requestEmpNum = requestEmpNum;
     }
 
-    public int getApprovalEmpnum() {
-        return approvalEmpnum;
+    public int getApprovalEmpNum() {
+        return approvalEmpNum;
     }
 
-    public void setApprovalEmpnum(int approvalEmpnum) {
-        this.approvalEmpnum = approvalEmpnum;
+    public void setApprovalEmpNum(int approvalEmpNum) {
+        this.approvalEmpNum = approvalEmpNum;
     }
 
     public String getRemark() {

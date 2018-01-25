@@ -39,9 +39,10 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="140dp"
+                        android:layout_width="130dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/department_text" />
+                        android:text="@string/department_text"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/department_text"
@@ -61,9 +62,10 @@
 
                     <TextView
                         android:id="@+id/date_time_text"
-                        android:layout_width="140dp"
+                        android:layout_width="130dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/date_and_time_text" />
+                        android:text="@string/date_and_time_text"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/date_text"
@@ -89,9 +91,10 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="140dp"
+                        android:layout_width="130dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/collection_point_text" />
+                        android:text="@string/collection_point_text"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/collection_text"
@@ -118,7 +121,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/stationery_text"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -126,7 +129,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/qty_to_collect_text"
                     android:textAlignment="textEnd"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -143,7 +146,8 @@
             <FrameLayout
                 android:id="@+id/scan_button_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_height="60dp"
                 android:layout_gravity="bottom"
                 android:background="@color/colorGreen">
 

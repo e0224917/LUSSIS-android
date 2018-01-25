@@ -1,7 +1,6 @@
 package com.sa45team7.lussis.dialogs;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -13,6 +12,7 @@ import android.widget.EditText;
 
 import com.sa45team7.lussis.R;
 
+import static android.app.Activity.RESULT_OK;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
@@ -22,8 +22,8 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public class ConfirmDialog extends DialogFragment {
 
-    private OnConfirmDialogListener mListener;
-
+    public static final int REQUEST_CONFIRM = 9;
+    
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,7 +35,13 @@ public class ConfirmDialog extends DialogFragment {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onOkButtonClick(reasonText.getText().toString());
+                getActivity().getIntent().putExtra("reason", reasonText.getText().toString());
+
+                if (getTargetFragment() != null) {
+                    getTargetFragment().onActivityResult(REQUEST_CONFIRM, RESULT_OK, getActivity().getIntent());
+                } else {
+                    onActivityResult(REQUEST_CONFIRM, RESULT_OK, getActivity().getIntent());
+                }
                 dismiss();
             }
         });
@@ -44,7 +50,7 @@ public class ConfirmDialog extends DialogFragment {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onCancelButtonClick();
+
                 dismiss();
             }
         });
@@ -61,26 +67,4 @@ public class ConfirmDialog extends DialogFragment {
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof ConfirmDialog.OnConfirmDialogListener) {
-            mListener = (ConfirmDialog.OnConfirmDialogListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnConfirmDialogListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnConfirmDialogListener {
-        void onOkButtonClick(String reason);
-
-        void onCancelButtonClick();
-    }
 }

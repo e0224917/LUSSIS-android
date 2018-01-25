@@ -1,7 +1,6 @@
 package com.sa45team7.lussis.dialogs;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -14,6 +13,7 @@ import android.widget.ImageButton;
 
 import com.sa45team7.lussis.R;
 
+import static android.app.Activity.RESULT_OK;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
@@ -23,7 +23,7 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public class AdjustDialog extends DialogFragment {
 
-    private OnAdjustDialogListener mListener;
+    public static final int REQUEST_ADJUST = 8;
 
     @Nullable
     @Override
@@ -54,10 +54,19 @@ public class AdjustDialog extends DialogFragment {
 
         Button okButton = view.findViewById(R.id.ok_button);
         okButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 int number = Integer.parseInt(numberText.getText().toString());
-                mListener.onOkButtonClick(number, reasonText.getText().toString());
+                getActivity().getIntent().putExtra("quantity", number);
+                getActivity().getIntent().putExtra("reason", reasonText.getText().toString());
+
+                if (getTargetFragment() != null) {
+                    getTargetFragment().onActivityResult(REQUEST_ADJUST, RESULT_OK, getActivity().getIntent());
+                } else {
+                    onActivityResult(REQUEST_ADJUST, RESULT_OK, getActivity().getIntent());
+                }
+
                 dismiss();
             }
         });
@@ -66,7 +75,6 @@ public class AdjustDialog extends DialogFragment {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onCancelButtonClick();
                 dismiss();
             }
         });
@@ -83,26 +91,4 @@ public class AdjustDialog extends DialogFragment {
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnAdjustDialogListener) {
-            mListener = (OnAdjustDialogListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnAdjustDialogListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnAdjustDialogListener {
-        void onOkButtonClick(int number, String reason);
-
-        void onCancelButtonClick();
-    }
 }

@@ -29,9 +29,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
+import static com.sa45team7.lussis.dialogs.ConfirmDialog.REQUEST_CONFIRM;
 
 public class PendingReqFragment extends Fragment
-        implements PendingReqAdapter.OnPendingReqListInteractionListener, ConfirmDialog.OnConfirmDialogListener {
+        implements PendingReqAdapter.OnPendingReqListInteractionListener {
 
     public static final int REQUEST_PROCESS = 5;
 
@@ -80,6 +81,14 @@ public class PendingReqFragment extends Fragment
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_PROCESS && resultCode == RESULT_OK) {
             ((PendingReqAdapter) pendingReqListView.getAdapter()).removeItem(selectedReqPosition);
+        } else if (requestCode == REQUEST_CONFIRM) {
+            if (resultCode == RESULT_OK) {
+                selectedReq.setApprovalRemarks(data.getStringExtra("reason"));
+                processRequisition();
+            } else {
+                selectedReq = null;
+                selectedReqPosition = -1;
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -157,20 +166,9 @@ public class PendingReqFragment extends Fragment
         selectedReq.setApprovalEmp(UserManager.getInstance().getCurrentEmployee());
 
         ConfirmDialog dialog = new ConfirmDialog();
+        dialog.setTargetFragment(this, REQUEST_CONFIRM);
         dialog.show(getFragmentManager(), "confirm_dialog");
 
-    }
-
-    @Override
-    public void onOkButtonClick(String reason) {
-        selectedReq.setApprovalRemarks(reason);
-        processRequisition();
-    }
-
-    @Override
-    public void onCancelButtonClick() {
-        selectedReq = null;
-        selectedReqPosition = -1;
     }
 
     private void checkListEmpty() {

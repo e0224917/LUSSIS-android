@@ -80,7 +80,8 @@
     <FrameLayout
         android:id="@+id/confirm_button_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:layout_margin="3dp"
         android:background="@color/colorGreen">
 
         <android.support.v7.widget.AppCompatButton

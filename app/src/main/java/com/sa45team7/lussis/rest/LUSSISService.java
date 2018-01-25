@@ -92,10 +92,10 @@ public interface LUSSISService {
     @GET("Disbursement/{id}")
     Call<Disbursement> getDisbursementById(@Path("id") int disbursementId);
 
-    @GET("Disbursement/{dept}")
+    @GET("Disbursement/Upcoming/{dept}")
     Call<Disbursement> getUpcomingCollection(@Path("dept") String deptCode);
 
-    @POST("Disbursement/{id}")
+    @POST("Disbursement/Acknowledge/{id}")
     Call<LUSSISResponse> acknowledge(@Path("id") int disbursementId, @Body int empNum);
 
     /**

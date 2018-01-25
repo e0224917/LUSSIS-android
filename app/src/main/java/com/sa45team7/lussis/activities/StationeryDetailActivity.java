@@ -1,5 +1,6 @@
 package com.sa45team7.lussis.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -24,8 +25,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class StationeryDetailActivity extends AppCompatActivity
-        implements AdjustDialog.OnAdjustDialogListener {
+import static com.sa45team7.lussis.dialogs.AdjustDialog.REQUEST_ADJUST;
+
+public class StationeryDetailActivity extends AppCompatActivity {
 
     private Spinner categorySpinner;
     private TextView uomText;
@@ -132,17 +134,15 @@ public class StationeryDetailActivity extends AppCompatActivity
     }
 
     @Override
-    public void onOkButtonClick(int number, String reason) {
-        Adjustment adjustment = new Adjustment();
-        adjustment.setItemNum(itemNum);
-        adjustment.setQuantity(number);
-        adjustment.setReason(reason);
-        adjustment.setRequestEmpNum(UserManager.getInstance().getCurrentEmployee().getEmpNum());
-        adjustStock(adjustment);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_ADJUST && resultCode == RESULT_OK) {
+            Adjustment adjustment = new Adjustment();
+            adjustment.setItemNum(itemNum);
+            adjustment.setQuantity(data.getIntExtra("number", 0));
+            adjustment.setReason(data.getStringExtra("reason"));
+            adjustment.setRequestEmpNum(UserManager.getInstance().getCurrentEmployee().getEmpNum());
+            adjustStock(adjustment);
+        }
     }
 
-    @Override
-    public void onCancelButtonClick() {
-
-    }
 }
