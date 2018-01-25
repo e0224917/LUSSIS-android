@@ -50,8 +50,12 @@ public class HomeAdapter extends ArrayAdapter<MenuItem> {
         }
 
         MenuItem item = getItem(position);
-        holder.mIcon.setBackground(item.getIcon());
-        holder.mText.setText(item.getTitle());
+        if(item == null){
+            convertView.setVisibility(View.INVISIBLE);
+        } else {
+            holder.mIcon.setBackground(item.getIcon());
+            holder.mText.setText(item.getTitle());
+        }
 
         return convertView;
     }

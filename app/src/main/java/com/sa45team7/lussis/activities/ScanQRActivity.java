@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -21,8 +22,10 @@ import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.sa45team7.lussis.R;
+import com.sa45team7.lussis.adapters.ReqDetailAdapter;
 import com.sa45team7.lussis.data.UserManager;
 import com.sa45team7.lussis.rest.LUSSISClient;
+import com.sa45team7.lussis.rest.model.Disbursement;
 import com.sa45team7.lussis.rest.model.LUSSISResponse;
 import com.sa45team7.lussis.utils.ErrorUtil;
 
@@ -40,6 +43,7 @@ public class ScanQRActivity extends AppCompatActivity {
     private CameraSource cameraSource;
     private TextView resultText;
     private String scanResult;
+    private RecyclerView disDetailList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +78,28 @@ public class ScanQRActivity extends AppCompatActivity {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (scanResult != null)
-                    acknowledge();
+                if (scanResult != null) {
+                    int disId = Integer.parseInt(scanResult);
+                    acknowledge(disId);
+                } else {
+                    Toast.makeText(ScanQRActivity.this,
+                            "No disbursment scanned", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        Button retryButton = findViewById(R.id.retry_button);
+        retryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initBarCodeDetector();
             }
         });
 
         resultText = findViewById(R.id.result_text);
+
+        disDetailList = findViewById(R.id.dis_detail_list);
     }
 
     private void initBarCodeDetector() {
@@ -103,7 +123,8 @@ public class ScanQRActivity extends AppCompatActivity {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 try {
-                    if (ContextCompat.checkSelfPermission(ScanQRActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(ScanQRActivity.this,
+                            Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                         cameraSource.start(cameraView.getHolder());
                     }
                 } catch (IOException e) {
@@ -125,7 +146,16 @@ public class ScanQRActivity extends AppCompatActivity {
         barcode.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
-
+                if (scanResult != null) {
+                    try {
+                        int disId = Integer.parseInt(scanResult);
+                        resultText.setText(scanResult);
+                        getDisbursement(disId);
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(ScanQRActivity.this,
+                                "Error: invalid code", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
 
             @Override
@@ -136,7 +166,7 @@ public class ScanQRActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             scanResult = barcodes.valueAt(0).rawValue;
-                            resultText.setText("Scanned. Press button to confirm.");
+
                             cameraSource.release();
                         }
                     });
@@ -146,11 +176,9 @@ public class ScanQRActivity extends AppCompatActivity {
         });
     }
 
-    private void acknowledge() {
+    private void acknowledge(int disbursementId) {
 
         int empNum = UserManager.getInstance().getCurrentEmployee().getEmpNum();
-
-        int disbursementId = Integer.valueOf(scanResult);
 
         Call<LUSSISResponse> call = LUSSISClient.getApiService().acknowledge(disbursementId, empNum);
         call.enqueue(new Callback<LUSSISResponse>() {
@@ -169,6 +197,28 @@ public class ScanQRActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LUSSISResponse> call, Throwable t) {
+                Toast.makeText(ScanQRActivity.this,
+                        "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getDisbursement(int id) {
+        Call<Disbursement> call = LUSSISClient.getApiService().getDisbursementById(id);
+        call.enqueue(new Callback<Disbursement>() {
+            @Override
+            public void onResponse(Call<Disbursement> call, Response<Disbursement> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ReqDetailAdapter adapter = new ReqDetailAdapter(response.body().getDisbursementDetails());
+                    disDetailList.setAdapter(adapter);
+                } else {
+                    String error = ErrorUtil.parseError(response).getMessage();
+                    Toast.makeText(ScanQRActivity.this, error, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Disbursement> call, Throwable t) {
                 Toast.makeText(ScanQRActivity.this,
                         "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }

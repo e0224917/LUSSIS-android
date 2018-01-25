@@ -23,10 +23,23 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LUSSISClient {
 
-    private static final String ROOT_URL = "https://10.211.55.5/LUSSIS/api/";
-//    private static final String ROOT_URL = "https://10.211.55.5:44303/api/";
+    private static String ROOT_URL = "https://10.211.55.5/LUSSIS/api/";
+
+    private static volatile Retrofit retrofit = null;
 
     public static Retrofit getRetrofitInstance() {
+        if (retrofit == null) {
+            synchronized (LUSSISClient.class) {
+                if (retrofit == null) {
+                    retrofit = getRetrofitObj();
+                }
+            }
+        }
+
+        return retrofit;
+    }
+
+    private static Retrofit getRetrofitObj() {
         try {
             // Create a trust manager that does not validate certificate chains
             final X509TrustManager trustManager = new X509TrustManager() {
@@ -80,6 +93,11 @@ public class LUSSISClient {
 
     public static LUSSISService getApiService() {
         return getRetrofitInstance().create(LUSSISService.class);
+    }
+
+    public static void setIp(String address) {
+        ROOT_URL = "https://" + address + "/LUSSIS/api/";
+        retrofit = getRetrofitObj();
     }
 
 }

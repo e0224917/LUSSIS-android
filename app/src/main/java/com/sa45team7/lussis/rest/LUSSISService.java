@@ -20,7 +20,6 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 /**
  * Created by nhatton on 1/17/18.
@@ -89,6 +88,9 @@ public interface LUSSISService {
      */
     @GET("Disbursement/")
     Call<List<Disbursement>> getDisbursements();
+
+    @GET("Disbursement/{id}")
+    Call<Disbursement> getDisbursementById(@Path("id") int disbursementId);
 
     @GET("Disbursement/{dept}")
     Call<Disbursement> getUpcomingCollection(@Path("dept") String deptCode);

@@ -3,6 +3,7 @@ package com.sa45team7.lussis.activities;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -18,6 +19,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.sa45team7.lussis.R;
+import com.sa45team7.lussis.adapters.ReqDetailAdapter;
 import com.sa45team7.lussis.rest.model.Disbursement;
 import com.sa45team7.lussis.utils.DateConvertUtil;
 
@@ -26,6 +28,7 @@ public class GenerateQRActivity extends AppCompatActivity {
     private Disbursement disbursement;
     private ImageView qrView;
     private Button toggleButton;
+    private RecyclerView stationeryListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,10 @@ public class GenerateQRActivity extends AppCompatActivity {
                 toggle();
             }
         });
+
+        stationeryListView = findViewById(R.id.stationery_list_view);
+        ReqDetailAdapter adapter = new ReqDetailAdapter(disbursement.getDisbursementDetails());
+        stationeryListView.setAdapter(adapter);
     }
 
     private void toggle() {

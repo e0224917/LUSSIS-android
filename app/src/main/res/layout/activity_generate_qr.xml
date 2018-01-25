@@ -99,11 +99,12 @@
                 android:textStyle="bold" />
 
             <Button
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:id="@+id/toggle_button"
                 android:layout_alignParentEnd="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hide"
+                android:text="@string/action_hide"
                 android:textAllCaps="false" />
         </RelativeLayout>
 

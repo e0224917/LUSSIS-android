@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.sa45team7.lussis.R;
 import com.sa45team7.lussis.rest.model.RetrievalItem;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -23,6 +25,7 @@ public class RetrievalAdapter extends RecyclerView.Adapter<RetrievalAdapter.Retr
 
     public RetrievalAdapter(List<RetrievalItem> list, OnRetrievalListInteractionListener listener) {
         mValues = list;
+        Collections.sort(mValues);
         mListener = listener;
     }
 

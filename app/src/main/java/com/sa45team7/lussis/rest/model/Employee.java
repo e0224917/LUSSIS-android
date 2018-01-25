@@ -111,8 +111,4 @@ public class Employee {
         return firstName + " " + lastName;
     }
 
-    @Override
-    public String toString() {
-        return getFullName();
-    }
 }

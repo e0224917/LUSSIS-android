@@ -116,15 +116,14 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_weight="1"
                     android:text="@string/stationery_text"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
                     android:text="@string/qty_to_collect_text"
                     android:textAlignment="textEnd"
                     android:textSize="18sp"
@@ -132,7 +131,7 @@
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/req_detail_list"
+                android:id="@+id/dis_detail_list"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"

@@ -1,12 +1,14 @@
 package com.sa45team7.lussis.rest.model;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by nhatton on 1/23/18.
  */
 
-public class RetrievalItem {
+public class RetrievalItem implements Comparable<RetrievalItem>{
 
     @SerializedName("ItemNum")
     private String itemNum;
@@ -73,5 +75,11 @@ public class RetrievalItem {
 
     public void setRequestedQty(int requestedQty) {
         this.requestedQty = requestedQty;
+    }
+
+    @Override
+    public int compareTo(@NonNull RetrievalItem o) {
+        if(binNum.equals(o.binNum)) return description.compareTo(o.description);
+        return binNum.compareTo(o.binNum);
     }
 }

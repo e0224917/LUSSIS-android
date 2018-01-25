@@ -34,7 +34,7 @@ import static android.app.Activity.RESULT_OK;
 public class CollectionPointFragment extends Fragment {
 
     private static final int REQUEST_SCAN = 6;
-    private RecyclerView reqDetailListView;
+    private RecyclerView disDetailListView;
     private SwipeRefreshLayout refreshLayout;
     private TextView dateText;
     private TextView timeText;
@@ -65,7 +65,7 @@ public class CollectionPointFragment extends Fragment {
         dateText = view.findViewById(R.id.date_text);
         timeText = view.findViewById(R.id.time_text);
         collectionName = view.findViewById(R.id.collection_text);
-        reqDetailListView = view.findViewById(R.id.req_detail_list);
+        disDetailListView = view.findViewById(R.id.dis_detail_list);
 
         Button acknowledgeButton = view.findViewById(R.id.scan_button);
         acknowledgeButton.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +110,7 @@ public class CollectionPointFragment extends Fragment {
                     collectionName.setText(currentDisbursement.getCollectionPoint());
 
                     ReqDetailAdapter adapter = new ReqDetailAdapter(currentDisbursement.getDisbursementDetails());
-                    reqDetailListView.setAdapter(adapter);
+                    disDetailListView.setAdapter(adapter);
 
                 } else {
                     String error = ErrorUtil.parseError(response).getMessage();

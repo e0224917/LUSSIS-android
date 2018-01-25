@@ -98,9 +98,11 @@ public class LoginActivity extends AppCompatActivity {
                 createDialog();
             }
         });
+
+        setIpButton();
     }
 
-    private void createDialog(){
+    private void createDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Forgot password");
 
@@ -271,5 +273,40 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    private void setIpButton() {
+        Button ipButton = findViewById(R.id.ip_button);
+        ipButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createIpDialog();
+            }
+        });
+    }
+
+    private void createIpDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Input your IP address");
+
+        final EditText ipInput = new EditText(this);
+        ipInput.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(ipInput);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String ip = ipInput.getText().toString();
+                LUSSISClient.setIp(ip);
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
 }
 

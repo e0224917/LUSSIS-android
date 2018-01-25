@@ -1,7 +1,6 @@
 package com.sa45team7.lussis.activities;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -30,7 +29,7 @@ import com.sa45team7.lussis.rest.model.Employee;
 
 public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        HomeFragment.OnFragmentInteractionListener {
+        HomeFragment.OnHomeFragmentInteractionListener {
 
     private FragmentManager fragmentManager;
     private Toolbar toolbar;
@@ -113,8 +112,9 @@ public class BaseActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             if (fragmentManager.findFragmentByTag(HomeFragment.class.toString()) == null) {
-                navigationView.setCheckedItem(R.id.nav_home);
-                displayFragment(homeFragment);
+                MenuItem item = navigationView.getMenu().getItem(0);
+                navigationView.setCheckedItem(item.getItemId());
+                onNavigationItemSelected(item);
             } else {
                 super.onBackPressed();
             }
@@ -129,6 +129,7 @@ public class BaseActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.nav_home:
+                if (homeFragment == null) homeFragment = new HomeFragment();
                 displayFragment(homeFragment);
                 break;
             case R.id.nav_pendingreq:
@@ -181,8 +182,9 @@ public class BaseActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public void onPanelIconClick(MenuItem item) {
+        navigationView.setCheckedItem(item.getItemId());
+        onNavigationItemSelected(item);
     }
 
 }
