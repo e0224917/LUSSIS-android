@@ -1,4 +1,4 @@
-package com.sa45team7.lussis.fragments;
+package com.sa45team7.lussis.ui.mainscreen;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.sa45team7.lussis.R;
-import com.sa45team7.lussis.activities.PendingReqDetailActivity;
-import com.sa45team7.lussis.adapters.PendingReqAdapter;
-import com.sa45team7.lussis.data.UserManager;
-import com.sa45team7.lussis.dialogs.ConfirmDialog;
+import com.sa45team7.lussis.ui.detailsscren.PendingReqDetailActivity;
+import com.sa45team7.lussis.ui.adapters.PendingReqAdapter;
+import com.sa45team7.lussis.helpers.UserManager;
+import com.sa45team7.lussis.ui.dialogs.ConfirmDialog;
 import com.sa45team7.lussis.rest.LUSSISClient;
 import com.sa45team7.lussis.rest.model.LUSSISResponse;
 import com.sa45team7.lussis.rest.model.Requisition;
@@ -29,7 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
-import static com.sa45team7.lussis.dialogs.ConfirmDialog.REQUEST_CONFIRM;
+import static com.sa45team7.lussis.ui.dialogs.ConfirmDialog.REQUEST_CONFIRM;
 
 public class PendingReqFragment extends Fragment
         implements PendingReqAdapter.OnPendingReqListInteractionListener {

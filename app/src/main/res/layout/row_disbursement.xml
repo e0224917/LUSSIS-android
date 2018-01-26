@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
-    android:layout_marginEnd="10dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginTop="5dp"
+    android:layout_marginBottom="@dimen/row_margin_bottom"
+    android:layout_marginEnd="@dimen/row_margin_end"
+    android:layout_marginStart="@dimen/row_margin_start"
+    android:layout_marginTop="@dimen/row_margin_top"
     android:background="@drawable/bg_req"
     android:orientation="horizontal"
     android:padding="10dp">
 
     <TextView
         android:id="@+id/dis_dept_text"
+        style="@style/ContentText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="Commerce Dept"
-        android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

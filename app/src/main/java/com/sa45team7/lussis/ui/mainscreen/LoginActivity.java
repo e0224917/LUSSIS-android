@@ -1,4 +1,4 @@
-package com.sa45team7.lussis.activities;
+package com.sa45team7.lussis.ui.mainscreen;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -20,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sa45team7.lussis.R;
-import com.sa45team7.lussis.data.UserManager;
+import com.sa45team7.lussis.helpers.UserManager;
 import com.sa45team7.lussis.rest.LUSSISClient;
 import com.sa45team7.lussis.rest.model.Employee;
 import com.sa45team7.lussis.rest.model.LUSSISError;

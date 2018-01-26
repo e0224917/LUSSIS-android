@@ -1,4 +1,4 @@
-package com.sa45team7.lussis.fragments;
+package com.sa45team7.lussis.ui.mainscreen;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.sa45team7.lussis.R;
-import com.sa45team7.lussis.adapters.HomeAdapter;
+import com.sa45team7.lussis.ui.adapters.HomeAdapter;
 
 import java.util.ArrayList;
 

@@ -4,16 +4,39 @@
     android:id="@+id/retrieval_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sa45team7.lussis.fragments.RetrievalListFragment">
+    tools:context=".ui.mainscreen.RetrievalListFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.SearchView
+        <LinearLayout
+            android:layout_marginStart="@dimen/row_margin_start"
+            android:layout_marginTop="@dimen/row_margin_top"
+            android:layout_marginEnd="@dimen/row_margin_end"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/CategoryText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/row_margin_end"
+                android:text="@string/location_text" />
+
+            <Spinner
+                android:id="@+id/bin_num_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <android.support.v7.widget.SearchView
+                android:id="@+id/search_view"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <FrameLayout
             android:layout_width="match_parent"

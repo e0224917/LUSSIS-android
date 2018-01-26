@@ -4,7 +4,7 @@
     android:id="@+id/collection_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sa45team7.lussis.fragments.CollectionPointFragment">
+    tools:context=".ui.mainscreen.CollectionPointFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -117,20 +117,18 @@
                 android:paddingTop="10dp">
 
                 <TextView
+                    style="@style/CategoryText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/stationery_text"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:text="@string/stationery_text" />
 
                 <TextView
+                    style="@style/CategoryText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/qty_to_collect_text"
-                    android:textAlignment="textEnd"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textAlignment="textEnd" />
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView

@@ -1,4 +1,4 @@
-package com.sa45team7.lussis.dialogs;
+package com.sa45team7.lussis.ui.dialogs;
 
 import android.app.Dialog;
 import android.os.Bundle;

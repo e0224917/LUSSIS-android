@@ -1,4 +1,4 @@
-package com.sa45team7.lussis.adapters;
+package com.sa45team7.lussis.ui.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

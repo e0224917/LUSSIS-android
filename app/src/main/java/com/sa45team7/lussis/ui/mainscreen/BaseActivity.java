@@ -1,4 +1,4 @@
-package com.sa45team7.lussis.activities;
+package com.sa45team7.lussis.ui.mainscreen;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,14 +17,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.sa45team7.lussis.R;
-import com.sa45team7.lussis.data.UserManager;
-import com.sa45team7.lussis.fragments.CollectionPointFragment;
-import com.sa45team7.lussis.fragments.DisbursementsFragment;
-import com.sa45team7.lussis.fragments.HomeFragment;
-import com.sa45team7.lussis.fragments.MyDelegateFragment;
-import com.sa45team7.lussis.fragments.MyReqFragment;
-import com.sa45team7.lussis.fragments.PendingReqFragment;
-import com.sa45team7.lussis.fragments.RetrievalListFragment;
+import com.sa45team7.lussis.helpers.UserManager;
+import com.sa45team7.lussis.ui.detailsscren.ScanQRActivity;
 import com.sa45team7.lussis.rest.model.Employee;
 
 public class BaseActivity extends AppCompatActivity
@@ -149,6 +143,7 @@ public class BaseActivity extends AppCompatActivity
                 displayFragment(new MyReqFragment());
                 break;
             case R.id.nav_stationery:
+                displayFragment(new StationeriesFragment());
                 break;
             case R.id.nav_retrieve:
                 displayFragment(new RetrievalListFragment());

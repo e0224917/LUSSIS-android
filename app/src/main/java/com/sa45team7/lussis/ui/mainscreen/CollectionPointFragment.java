@@ -1,4 +1,4 @@
-package com.sa45team7.lussis.fragments;
+package com.sa45team7.lussis.ui.mainscreen;
 
 
 import android.content.Intent;
@@ -14,9 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sa45team7.lussis.R;
-import com.sa45team7.lussis.activities.ScanQRActivity;
-import com.sa45team7.lussis.adapters.ReqDetailAdapter;
-import com.sa45team7.lussis.data.UserManager;
+import com.sa45team7.lussis.ui.detailsscren.ScanQRActivity;
+import com.sa45team7.lussis.ui.adapters.ReqDetailAdapter;
+import com.sa45team7.lussis.helpers.UserManager;
 import com.sa45team7.lussis.rest.LUSSISClient;
 import com.sa45team7.lussis.rest.model.Disbursement;
 import com.sa45team7.lussis.utils.DateConvertUtil;

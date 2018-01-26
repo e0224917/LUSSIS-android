@@ -4,10 +4,10 @@
     style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
-    android:layout_marginEnd="10dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginTop="5dp"
+    android:layout_marginBottom="@dimen/row_margin_bottom"
+    android:layout_marginEnd="@dimen/row_margin_end"
+    android:layout_marginStart="@dimen/row_margin_start"
+    android:layout_marginTop="@dimen/row_margin_top"
     android:background="@drawable/bg_req">
 
     <TextView

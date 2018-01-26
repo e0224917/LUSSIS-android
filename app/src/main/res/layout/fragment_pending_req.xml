@@ -26,7 +26,7 @@
             android:background="@color/colorBackground"
             android:visibility="gone"
             app:layoutManager="LinearLayoutManager"
-            tools:context="com.sa45team7.lussis.fragments.PendingReqFragment"
+            tools:context=".ui.mainscreen.PendingReqFragment"
             tools:listitem="@layout/row_pending_req" />
 
     </FrameLayout>

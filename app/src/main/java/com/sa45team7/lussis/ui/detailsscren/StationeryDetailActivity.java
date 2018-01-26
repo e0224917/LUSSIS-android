@@ -1,54 +1,39 @@
-package com.sa45team7.lussis.activities;
+package com.sa45team7.lussis.ui.detailsscren;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.sa45team7.lussis.R;
-import com.sa45team7.lussis.data.UserManager;
-import com.sa45team7.lussis.dialogs.AdjustDialog;
+import com.sa45team7.lussis.helpers.UserManager;
 import com.sa45team7.lussis.rest.LUSSISClient;
 import com.sa45team7.lussis.rest.model.Adjustment;
 import com.sa45team7.lussis.rest.model.LUSSISResponse;
 import com.sa45team7.lussis.rest.model.Stationery;
+import com.sa45team7.lussis.ui.dialogs.AdjustDialog;
 import com.sa45team7.lussis.utils.ErrorUtil;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.sa45team7.lussis.dialogs.AdjustDialog.REQUEST_ADJUST;
+import static com.sa45team7.lussis.ui.dialogs.AdjustDialog.REQUEST_ADJUST;
 
 public class StationeryDetailActivity extends AppCompatActivity {
 
-    private Spinner categorySpinner;
-    private TextView uomText;
-    private String itemNum;
+    private Stationery stationery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stationery_detail);
-
-        itemNum = getIntent().getStringExtra("itemNum");
-
-        categorySpinner = findViewById(R.id.itemCategory);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.stationery_category, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(adapter);
-
-        uomText = findViewById(R.id.itemUnitOfMeasure);
 
         Button adjustButton = findViewById(R.id.adjustButton);
 
@@ -60,26 +45,24 @@ public class StationeryDetailActivity extends AppCompatActivity {
             }
         });
 
-        fetchStationery();
+        if (getIntent().hasExtra("stationery")) {
+            String data = getIntent().getStringExtra("stationery");
+            stationery = new Gson().fromJson(data, Stationery.class);
+            populateFields();
+        } else {
+            fetchStationery();
+        }
     }
 
     private void fetchStationery() {
+        String itemNum = getIntent().getStringExtra("itemNum");
         Call<Stationery> call = LUSSISClient.getApiService().getStationery(itemNum);
         call.enqueue((new Callback<Stationery>() {
             @Override
             public void onResponse(@NonNull Call<Stationery> call, @NonNull Response<Stationery> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    ((EditText) findViewById(R.id.itemNum)).setText(itemNum);
-                    ((EditText) findViewById(R.id.itemDesc)).setText(response.body().getDescription());
-                    ((EditText) findViewById(R.id.itemBin)).setText(response.body().getBinNum());
-
-                    String qty = String.valueOf(response.body().getAvailableQty());
-                    ((EditText) findViewById(R.id.itemQty)).setText(qty);
-
-                    categorySpinner.setSelection(getIndex(categorySpinner, response.body().category));
-                    categorySpinner.setEnabled(false);
-
-                    uomText.setText(response.body().getUnitOfMeasure());
+                    stationery = response.body();
+                    populateFields();
 
                 } else {
                     String error = ErrorUtil.parseError(response).getMessage();
@@ -93,7 +76,7 @@ public class StationeryDetailActivity extends AppCompatActivity {
                         "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }));
-        ((EditText) findViewById(R.id.itemNum)).setText(itemNum);
+
     }
 
     private void adjustStock(Adjustment adjustment) {
@@ -120,6 +103,41 @@ public class StationeryDetailActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_ADJUST && resultCode == RESULT_OK) {
+            Adjustment adjustment = new Adjustment();
+            adjustment.setItemNum(stationery.getItemNum());
+            adjustment.setQuantity(data.getIntExtra("number", 0));
+            adjustment.setReason(data.getStringExtra("reason"));
+            adjustment.setRequestEmpNum(UserManager.getInstance().getCurrentEmployee().getEmpNum());
+            adjustStock(adjustment);
+        }
+    }
+
+    private void populateFields() {
+        ((EditText) findViewById(R.id.itemNum)).setText(stationery.getItemNum());
+        ((EditText) findViewById(R.id.itemDesc)).setText(stationery.getDescription());
+        ((EditText) findViewById(R.id.itemBin)).setText(stationery.getBinNum());
+
+        String qty = String.valueOf(stationery.getAvailableQty());
+        ((EditText) findViewById(R.id.itemQty)).setText(qty);
+
+        String reorderQty = String.valueOf(stationery.getReorderQty());
+        ((EditText) findViewById(R.id.itemReorderQty)).setText(reorderQty);
+
+        String reorderLevel = String.valueOf(stationery.getReorderLevel());
+        ((EditText) findViewById(R.id.itemReorderLvl)).setText(reorderLevel);
+
+        Spinner categorySpinner = findViewById(R.id.itemCategory);
+        categorySpinner.setSelection(getIndex(categorySpinner, stationery.getCategory()));
+        categorySpinner.setEnabled(false);
+
+        Spinner uomSpinner = findViewById(R.id.itemUnitOfMeasure);
+        uomSpinner.setSelection(getIndex(uomSpinner, stationery.getUnitOfMeasure()));
+        uomSpinner.setEnabled(false);
+    }
+
     //helper for spinner
     private int getIndex(Spinner spinner, String myString) {
         int index = 0;
@@ -131,18 +149,6 @@ public class StationeryDetailActivity extends AppCompatActivity {
             }
         }
         return index;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_ADJUST && resultCode == RESULT_OK) {
-            Adjustment adjustment = new Adjustment();
-            adjustment.setItemNum(itemNum);
-            adjustment.setQuantity(data.getIntExtra("number", 0));
-            adjustment.setReason(data.getStringExtra("reason"));
-            adjustment.setRequestEmpNum(UserManager.getInstance().getCurrentEmployee().getEmpNum());
-            adjustStock(adjustment);
-        }
     }
 
 }

@@ -1,4 +1,4 @@
-package com.sa45team7.lussis.adapters;
+package com.sa45team7.lussis.ui.adapters;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sa45team7.lussis.R;
-import com.sa45team7.lussis.activities.PendingReqDetailActivity;
+import com.sa45team7.lussis.ui.detailsscren.PendingReqDetailActivity;
 import com.sa45team7.lussis.rest.model.Requisition;
 import com.sa45team7.lussis.utils.DateConvertUtil;
 

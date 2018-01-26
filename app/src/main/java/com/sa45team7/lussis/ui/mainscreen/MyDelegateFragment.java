@@ -1,4 +1,4 @@
-package com.sa45team7.lussis.fragments;
+package com.sa45team7.lussis.ui.mainscreen;
 
 
 import android.app.DatePickerDialog;
@@ -19,7 +19,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.sa45team7.lussis.R;
-import com.sa45team7.lussis.data.UserManager;
+import com.sa45team7.lussis.helpers.UserManager;
 import com.sa45team7.lussis.rest.LUSSISClient;
 import com.sa45team7.lussis.rest.model.Delegate;
 import com.sa45team7.lussis.rest.model.Employee;

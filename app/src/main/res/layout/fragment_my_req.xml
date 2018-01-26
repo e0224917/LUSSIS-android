@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:background="@color/colorBackground"
             app:layoutManager="LinearLayoutManager"
-            tools:context="com.sa45team7.lussis.fragments.MyReqFragment"
+            tools:context=".ui.mainscreen.MyReqFragment"
             tools:listitem="@layout/row_my_req" />
 
     </FrameLayout>

@@ -1,4 +1,4 @@
-package com.sa45team7.lussis.fragments;
+package com.sa45team7.lussis.ui.mainscreen;
 
 
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.sa45team7.lussis.R;
-import com.sa45team7.lussis.adapters.MyReqAdapter;
-import com.sa45team7.lussis.data.UserManager;
+import com.sa45team7.lussis.ui.adapters.MyReqAdapter;
+import com.sa45team7.lussis.helpers.UserManager;
 import com.sa45team7.lussis.rest.LUSSISClient;
 import com.sa45team7.lussis.rest.model.Requisition;
 import com.sa45team7.lussis.utils.ErrorUtil;

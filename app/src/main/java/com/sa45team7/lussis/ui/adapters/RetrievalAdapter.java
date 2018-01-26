@@ -1,31 +1,37 @@
-package com.sa45team7.lussis.adapters;
+package com.sa45team7.lussis.ui.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.sa45team7.lussis.R;
 import com.sa45team7.lussis.rest.model.RetrievalItem;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
  * Created by nhatton on 1/23/18.
  */
 
-public class RetrievalAdapter extends RecyclerView.Adapter<RetrievalAdapter.RetrievalHolder> {
+public class RetrievalAdapter extends RecyclerView.Adapter<RetrievalAdapter.RetrievalHolder>
+        implements Filterable {
 
     private List<RetrievalItem> mValues;
+    private List<RetrievalItem> mOriginValues;
     private OnRetrievalListInteractionListener mListener;
+    private BinNumberFilter binNumFilter;
 
     public RetrievalAdapter(List<RetrievalItem> list, OnRetrievalListInteractionListener listener) {
         mValues = list;
         Collections.sort(mValues);
+        mOriginValues = mValues;
         mListener = listener;
     }
 
@@ -47,7 +53,7 @@ public class RetrievalAdapter extends RecyclerView.Adapter<RetrievalAdapter.Retr
         holder.mAdjustButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mListener!=null) mListener.onSelectAdjust(holder.mItem);
+                if (mListener != null) mListener.onSelectAdjust(holder.mItem);
             }
         });
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +67,29 @@ public class RetrievalAdapter extends RecyclerView.Adapter<RetrievalAdapter.Retr
     @Override
     public int getItemCount() {
         return mValues.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        if (binNumFilter == null) binNumFilter = new BinNumberFilter();
+        return binNumFilter;
+    }
+
+    public void filterByDescription(String query) {
+        query = query.toLowerCase().trim();
+
+        if (!query.isEmpty()) {
+            ArrayList<RetrievalItem> result = new ArrayList<>();
+
+            for (RetrievalItem item : mValues) {
+                if (item.getDescription().contains(query))
+                    result.add(item);
+            }
+
+            mValues = result;
+            notifyDataSetChanged();
+        }
+
     }
 
     class RetrievalHolder extends RecyclerView.ViewHolder {
@@ -87,6 +116,39 @@ public class RetrievalAdapter extends RecyclerView.Adapter<RetrievalAdapter.Retr
 
     public interface OnRetrievalListInteractionListener {
         void onSelectRetrievalItem(RetrievalItem item);
+
         void onSelectAdjust(RetrievalItem item);
+    }
+
+    private class BinNumberFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence binNum) {
+
+            FilterResults results = new FilterResults();
+
+            if (binNum.equals("All")) {
+                results.count = mOriginValues.size();
+                results.values = mOriginValues;
+            } else {
+                ArrayList<RetrievalItem> filteredList = new ArrayList<>();
+                for (RetrievalItem item : mOriginValues) {
+                    if (item.getBinNum().equals(binNum)) {
+                        filteredList.add(item);
+                    }
+                }
+
+                results.count = filteredList.size();
+                results.values = filteredList;
+            }
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mValues = (List<RetrievalItem>) results.values;
+            notifyDataSetChanged();
+        }
     }
 }

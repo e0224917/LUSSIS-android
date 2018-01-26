@@ -1,21 +1,23 @@
 package com.sa45team7.lussis.rest.model;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by nhatton on 1/17/18.
  */
 
-public class Stationery {
+public class Stationery implements Comparable<Stationery> {
 
     @SerializedName("ItemNum")
     private String itemNum;
 
     @SerializedName("Category")
-    public String category;
+    private String category;
 
     @SerializedName("Description")
-    public String description;
+    private String description;
 
     @SerializedName("ReorderLevel")
     private int reorderLevel;
@@ -27,10 +29,10 @@ public class Stationery {
     private String unitOfMeasure;
 
     @SerializedName("AvailableQty")
-    public int availableQty;
+    private int availableQty;
 
     @SerializedName("BinNum")
-    public String binNum;
+    private String binNum;
 
     public String getItemNum() {
         return itemNum;
@@ -96,4 +98,9 @@ public class Stationery {
         this.binNum = binNum;
     }
 
+    @Override
+    public int compareTo(@NonNull Stationery o) {
+        if (category.equals(o.category)) return itemNum.compareTo(o.itemNum);
+        return category.compareTo(o.category);
+    }
 }

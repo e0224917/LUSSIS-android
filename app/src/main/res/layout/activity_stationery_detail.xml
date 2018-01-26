@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sa45team7.lussis.activities.StationeryDetailActivity">
+    android:paddingTop="20dp"
+    tools:context=".ui.detailsscren.StationeryDetailActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -34,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:labelFor="@id/itemDesc"
         android:text="@string/description"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,23 +59,23 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginTop="8dp"
         android:labelFor="@id/itemBin"
         android:text="@string/bin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemDesc" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/itemBin"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:enabled="false"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
@@ -82,11 +83,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:labelFor="@id/itemQty"
         android:text="@string/current_qty"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemBin" />
+        app:layout_constraintTop_toBottomOf="@+id/itemCategory" />
 
     <EditText
         android:id="@+id/itemQty"
@@ -104,34 +105,89 @@
         android:id="@+id/textView5"
         android:layout_width="72dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:text="Category"
-        android:textAppearance="@android:style/TextAppearance.Medium"
-        app:layout_constraintBottom_toTopOf="@+id/itemDesc"
-        app:layout_constraintStart_toEndOf="@+id/itemNum"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.511" />
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/category"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemDesc" />
 
     <Spinner
         android:id="@+id/itemCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
         android:clickable="false"
-        app:layout_constraintBottom_toTopOf="@+id/itemDesc"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:entries="@array/stationery_category"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/text_unit_of_measure"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemDesc" />
+
+    <Spinner
         android:id="@+id/itemUnitOfMeasure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/itemQty"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="8dp"
+        android:clickable="false"
+        android:entries="@array/stationery_unit_of_measure"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:labelFor="@id/itemReorderQty"
+        android:text="@string/reorder_qty"
+        app:layout_constraintEnd_toStartOf="@+id/textView8"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/itemUnitOfMeasure" />
+
+    <EditText
+        android:id="@+id/itemReorderQty"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/itemReorderLvl"
         app:layout_constraintStart_toEndOf="@+id/itemQty"
-        app:layout_constraintTop_toTopOf="@+id/itemQty" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="16dp"
+        android:labelFor="@id/itemReorderLvl"
+        android:text="@string/reorder_level"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemUnitOfMeasure" />
+
+    <EditText
+        android:id="@+id/itemReorderLvl"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <FrameLayout
         android:id="@+id/adjustButtonLayout"

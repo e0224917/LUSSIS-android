@@ -3,7 +3,7 @@
     android:id="@+id/delegate_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sa45team7.lussis.fragments.MyDelegateFragment">
+    tools:context=".ui.mainscreen.MyDelegateFragment">
 
     <LinearLayout
         android:id="@+id/delegate_container_layout"

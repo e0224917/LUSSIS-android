@@ -1,4 +1,4 @@
-package com.sa45team7.lussis.activities;
+package com.sa45team7.lussis.ui.detailsscren;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.sa45team7.lussis.R;
-import com.sa45team7.lussis.adapters.ReqDetailAdapter;
+import com.sa45team7.lussis.ui.adapters.ReqDetailAdapter;
 import com.sa45team7.lussis.rest.model.Disbursement;
 import com.sa45team7.lussis.utils.DateConvertUtil;
 

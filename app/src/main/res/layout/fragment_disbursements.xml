@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:background="@color/colorBackground"
             app:layoutManager="LinearLayoutManager"
-            tools:context="com.sa45team7.lussis.fragments.DisbursementsFragment"
+            tools:context=".ui.mainscreen.DisbursementsFragment"
             tools:listitem="@layout/row_disbursement" />
     </FrameLayout>
 

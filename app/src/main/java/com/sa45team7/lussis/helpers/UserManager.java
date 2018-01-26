@@ -1,4 +1,4 @@
-package com.sa45team7.lussis.data;
+package com.sa45team7.lussis.helpers;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;

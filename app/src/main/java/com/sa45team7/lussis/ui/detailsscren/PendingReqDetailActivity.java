@@ -1,4 +1,4 @@
-package com.sa45team7.lussis.activities;
+package com.sa45team7.lussis.ui.detailsscren;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.sa45team7.lussis.R;
-import com.sa45team7.lussis.adapters.ReqDetailAdapter;
-import com.sa45team7.lussis.data.UserManager;
+import com.sa45team7.lussis.ui.adapters.ReqDetailAdapter;
+import com.sa45team7.lussis.helpers.UserManager;
 import com.sa45team7.lussis.rest.LUSSISClient;
 import com.sa45team7.lussis.rest.model.LUSSISResponse;
 import com.sa45team7.lussis.rest.model.Requisition;

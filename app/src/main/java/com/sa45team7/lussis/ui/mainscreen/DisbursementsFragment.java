@@ -1,4 +1,4 @@
-package com.sa45team7.lussis.fragments;
+package com.sa45team7.lussis.ui.mainscreen;
 
 
 import android.content.Intent;
@@ -13,8 +13,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.sa45team7.lussis.R;
-import com.sa45team7.lussis.activities.GenerateQRActivity;
-import com.sa45team7.lussis.adapters.DisbursementAdapter;
+import com.sa45team7.lussis.ui.detailsscren.GenerateQRActivity;
+import com.sa45team7.lussis.ui.adapters.DisbursementAdapter;
 import com.sa45team7.lussis.rest.LUSSISClient;
 import com.sa45team7.lussis.rest.model.Disbursement;
 import com.sa45team7.lussis.utils.ErrorUtil;

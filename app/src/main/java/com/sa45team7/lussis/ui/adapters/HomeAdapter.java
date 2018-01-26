@@ -1,4 +1,4 @@
-package com.sa45team7.lussis.adapters;
+package com.sa45team7.lussis.ui.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

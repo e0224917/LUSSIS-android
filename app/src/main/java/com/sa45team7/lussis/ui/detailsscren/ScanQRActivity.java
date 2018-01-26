@@ -1,4 +1,4 @@
-package com.sa45team7.lussis.activities;
+package com.sa45team7.lussis.ui.detailsscren;
 
 import android.Manifest;
 import android.content.Intent;
@@ -22,8 +22,8 @@ import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.sa45team7.lussis.R;
-import com.sa45team7.lussis.adapters.ReqDetailAdapter;
-import com.sa45team7.lussis.data.UserManager;
+import com.sa45team7.lussis.ui.adapters.ReqDetailAdapter;
+import com.sa45team7.lussis.helpers.UserManager;
 import com.sa45team7.lussis.rest.LUSSISClient;
 import com.sa45team7.lussis.rest.model.Disbursement;
 import com.sa45team7.lussis.rest.model.LUSSISResponse;
