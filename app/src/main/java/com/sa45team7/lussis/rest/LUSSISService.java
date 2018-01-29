@@ -96,7 +96,7 @@ public interface LUSSISService {
     Call<Disbursement> getUpcomingCollection(@Path("dept") String deptCode);
 
     @POST("Disbursement/Acknowledge/{id}")
-    Call<LUSSISResponse> acknowledge(@Path("id") int disbursementId, @Body int empNum);
+    Call<LUSSISResponse> acknowledge(@Path("id") int disbursementId, @Body Employee empNum);
 
     /**
      * Stock Adjustment API

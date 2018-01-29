@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LUSSISClient {
 
 //    private static String ROOT_URL = "https://10.211.55.5/LUSSIS/api/";
-    private static String ROOT_URL = "https://1c63ccb6.ap.ngrok.io/LUSSIS/api/";
+    private static String ROOT_URL = "https://772b5212.ap.ngrok.io/LUSSIS/api/";
 
     private static volatile Retrofit retrofit = null;
 

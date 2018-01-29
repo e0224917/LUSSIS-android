@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void createDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Forgot password");
+        builder.setTitle("Please key in your email address");
 
         final EditText emailInput = new EditText(this);
         emailInput.setInputType(InputType.TYPE_CLASS_TEXT);

@@ -22,6 +22,7 @@ import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.sa45team7.lussis.R;
+import com.sa45team7.lussis.rest.model.Employee;
 import com.sa45team7.lussis.ui.adapters.ReqDetailAdapter;
 import com.sa45team7.lussis.helpers.UserManager;
 import com.sa45team7.lussis.rest.LUSSISClient;
@@ -178,9 +179,9 @@ public class ScanQRActivity extends AppCompatActivity {
 
     private void acknowledge(int disbursementId) {
 
-        int empNum = UserManager.getInstance().getCurrentEmployee().getEmpNum();
+        Employee employee = UserManager.getInstance().getCurrentEmployee();
 
-        Call<LUSSISResponse> call = LUSSISClient.getApiService().acknowledge(disbursementId, empNum);
+        Call<LUSSISResponse> call = LUSSISClient.getApiService().acknowledge(disbursementId, employee);
         call.enqueue(new Callback<LUSSISResponse>() {
             @Override
             public void onResponse(Call<LUSSISResponse> call, Response<LUSSISResponse> response) {

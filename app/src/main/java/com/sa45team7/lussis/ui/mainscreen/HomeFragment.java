@@ -41,10 +41,10 @@ public class HomeFragment extends Fragment {
         //Add menu items to fit 6 grid items
         Menu menu = ((NavigationView) getActivity().findViewById(R.id.nav_view)).getMenu();
         ArrayList<MenuItem> list = new ArrayList<>();
-        for (int i = 0; i < menu.size() - 1; i++) {
+        for (int i = 1; i < menu.size() - 1; i++) {
             list.add(menu.getItem(i));
         }
-        for (int j = menu.size(); j < 6; j++) {
+        for (int j = menu.size(); j < 7; j++) {
             list.add(null);
         }
         list.add(menu.getItem(menu.size()-1));

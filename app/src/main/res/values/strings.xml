@@ -61,7 +61,7 @@
     <string name="category">Category</string>
     <string name="bin">Bin</string>
     <string name="current_qty">Current Qty</string>
-    <string name="adjust_stationery_qty">Submit Adjustment</string>
+    <string name="adjust_stationery_qty">Make an adjustment</string>
     <string name="department_text">Department</string>
     <string name="stationery_text">Stationery</string>
     <string name="qty_to_collect_text">Qty to Collect</string>
@@ -82,6 +82,7 @@
     <string name="text_unit_of_measure">Unit of Measure</string>
     <string name="reorder_qty">Reorder Qty</string>
     <string name="reorder_level">Reorder Level</string>
+    <string name="reason_optional_text">Reason (optional)</string>
 
     <string-array name="stationery_category">
         <item>All</item>

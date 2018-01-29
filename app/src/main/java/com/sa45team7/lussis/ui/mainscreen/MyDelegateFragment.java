@@ -126,10 +126,6 @@ public class MyDelegateFragment extends Fragment {
             startDateLayout.setError("Start date must be before end date.");
             endDateLayout.setError("End date must be after start date.");
             isValid = false;
-        } else if (startCalendar.equals(endCalendar)) {
-            startDateLayout.setError("Start date and end date must not be the same.");
-            endDateLayout.setError("Start date and end date must not be the same.");
-            isValid = false;
         }
 
         return isValid;
