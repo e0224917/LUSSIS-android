@@ -74,8 +74,8 @@ public class StationeryAdapter extends RecyclerView.Adapter<StationeryAdapter.St
         if (!query.isEmpty()) {
             ArrayList<Stationery> result = new ArrayList<>();
 
-            for (Stationery item : mValues) {
-                if (item.getDescription().contains(query))
+            for (Stationery item : mOriginValues) {
+                if (item.getDescription().toLowerCase().trim().contains(query))
                     result.add(item);
             }
 

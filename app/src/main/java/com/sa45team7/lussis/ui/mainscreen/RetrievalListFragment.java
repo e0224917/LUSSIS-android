@@ -102,6 +102,13 @@ public class RetrievalListFragment extends Fragment
                 return false;
             }
         });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                retrievalAdapter.filterByDescription("");
+                return false;
+            }
+        });
 
         getList();
 

@@ -81,12 +81,15 @@ public class RetrievalAdapter extends RecyclerView.Adapter<RetrievalAdapter.Retr
         if (!query.isEmpty()) {
             ArrayList<RetrievalItem> result = new ArrayList<>();
 
-            for (RetrievalItem item : mValues) {
-                if (item.getDescription().contains(query))
+            for (RetrievalItem item : mOriginValues) {
+                if (item.getDescription().toLowerCase().trim().contains(query))
                     result.add(item);
             }
 
             mValues = result;
+            notifyDataSetChanged();
+        } else {
+            mValues = mOriginValues;
             notifyDataSetChanged();
         }
 
