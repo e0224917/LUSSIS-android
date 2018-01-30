@@ -23,6 +23,7 @@ import retrofit2.http.Path;
 
 /**
  * Created by nhatton on 1/17/18.
+ * Every APIs stay here
  */
 
 public interface LUSSISService {
@@ -75,16 +76,11 @@ public interface LUSSISService {
     @GET("Delegate/Employee/{dept}")
     Call<List<Employee>> getEmployeeListForDelegate(@Path("dept") String deptCode);
 
-    @POST("Delegate/{dept}")
-    Call<Delegate> postDelegate(@Path("dept") String deptCode,
-                                @Body Delegate delegate);
+    @POST("Delegate/")
+    Call<Delegate> postDelegate(@Body Delegate delegate);
 
-    @PUT("Delegate/{dept}")
-    Call<LUSSISResponse> updateDelegate(@Path("dept") String deptCode,
-                                        @Body Delegate delegate);
-
-    @DELETE("Delegate/{dept}")
-    Call<LUSSISResponse> deleteDelegate(@Path("dept") String deptCode);
+    @DELETE("Delegate/")
+    Call<LUSSISResponse> deleteDelegate(@Body Delegate delegate);
 
     /**
      * Disbursement API

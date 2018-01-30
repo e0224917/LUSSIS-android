@@ -19,6 +19,7 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 /**
  * Created by nhatton on 1/24/18.
+ * Dialog used for stock adjustment voucher
  */
 
 public class AdjustDialog extends DialogFragment {

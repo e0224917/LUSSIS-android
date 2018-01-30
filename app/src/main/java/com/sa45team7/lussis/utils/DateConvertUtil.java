@@ -7,6 +7,7 @@ import java.util.TimeZone;
 
 /**
  * Created by nhatton on 1/20/18.
+ * Util class to deal with converting date to string
  */
 
 public class DateConvertUtil {
@@ -19,10 +20,20 @@ public class DateConvertUtil {
         formatFromServer.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
 
+    /**
+     * Method to convert to type MMM d
+     * @param date date to be formatted
+     * @return formatted date in string
+     */
     public static String convertForRequisitions(Date date) {
         return formatForRequisitions.format(date);
     }
 
+    /**
+     * Method to convert to type EEE, D MMM
+     * @param date date to be formatted
+     * @return formatted date in string
+     */
     public static String convertForDetail(Date date) {
         return formatForDetailDate.format(date);
     }

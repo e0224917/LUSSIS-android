@@ -105,6 +105,7 @@ public class BaseActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            //return to Home fragment, which has id of 0
             if (fragmentManager.findFragmentByTag(HomeFragment.class.toString()) == null) {
                 MenuItem item = navigationView.getMenu().getItem(0);
                 navigationView.setCheckedItem(item.getItemId());
@@ -164,11 +165,16 @@ public class BaseActivity extends AppCompatActivity
 
         drawer.closeDrawer(GravityCompat.START);
 
+        //set title of activity base on the title on the menu
         toolbar.setTitle(item.getTitle());
 
         return true;
     }
 
+    /**
+     * Display fragment by replace the current one, if same fragment then do nothing
+     * @param fragment fragment to change to
+     */
     private void displayFragment(Fragment fragment) {
         Fragment currentFragment = fragmentManager.findFragmentById(R.id.fragment_container);
         if (!fragment.getClass().toString().equals(currentFragment.getTag())) {

@@ -22,6 +22,7 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 /**
  * Created by nhatton on 1/30/18.
+ * Dialog used for confirm the quantity of a requisition
  */
 
 public class NewRequisitionDialog extends DialogFragment {

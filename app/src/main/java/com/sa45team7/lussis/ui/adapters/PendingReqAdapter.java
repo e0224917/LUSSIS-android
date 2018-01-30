@@ -14,6 +14,11 @@ import com.sa45team7.lussis.utils.DateConvertUtil;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Created by nhatton on 1/23/18.
+ * Adapter used for showing pending requisitions needed to be approved
+ */
+
 public class PendingReqAdapter extends RecyclerView.Adapter<PendingReqAdapter.PendingReqHolder> {
 
     private final List<Requisition> mValues;

@@ -18,6 +18,7 @@ import java.util.List;
 
 /**
  * Created by nhatton on 1/23/18.
+ * Adapter used for showing items to be retrieved
  */
 
 public class RetrievalAdapter extends RecyclerView.Adapter<RetrievalAdapter.RetrievalHolder>
@@ -123,6 +124,9 @@ public class RetrievalAdapter extends RecyclerView.Adapter<RetrievalAdapter.Retr
         void onSelectAdjust(RetrievalItem item);
     }
 
+    /**
+     * Filter class used for filtering stationery based on bin number
+     */
     private class BinNumberFilter extends Filter {
 
         @Override

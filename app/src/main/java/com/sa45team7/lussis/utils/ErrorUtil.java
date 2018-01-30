@@ -12,6 +12,7 @@ import retrofit2.Response;
 
 /**
  * Created by nhatton on 1/21/18.
+ * Util class to convert response from server to get error message
  */
 
 public class ErrorUtil {

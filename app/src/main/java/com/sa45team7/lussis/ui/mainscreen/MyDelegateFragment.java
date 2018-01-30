@@ -3,6 +3,7 @@ package com.sa45team7.lussis.ui.mainscreen;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -198,7 +199,7 @@ public class MyDelegateFragment extends Fragment {
 
         call.enqueue(new Callback<List<Employee>>() {
             @Override
-            public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
+            public void onResponse(@NonNull Call<List<Employee>> call, @NonNull Response<List<Employee>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Employee> list = response.body();
 
@@ -222,7 +223,7 @@ public class MyDelegateFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<Employee>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<Employee>> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(),
                         "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 refreshLayout.setRefreshing(false);
@@ -233,10 +234,10 @@ public class MyDelegateFragment extends Fragment {
     private void assignNewDelegate() {
         updateCurrentDelegate();
 
-        Call<Delegate> call = LUSSISClient.getApiService().postDelegate(deptCode, currentDelegate);
+        Call<Delegate> call = LUSSISClient.getApiService().postDelegate(currentDelegate);
         call.enqueue(new Callback<Delegate>() {
             @Override
-            public void onResponse(Call<Delegate> call, Response<Delegate> response) {
+            public void onResponse(@NonNull Call<Delegate> call, @NonNull Response<Delegate> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     currentDelegate = response.body();
                     Toast.makeText(getContext(), "Added new delegate", Toast.LENGTH_SHORT).show();
@@ -249,7 +250,7 @@ public class MyDelegateFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Delegate> call, Throwable t) {
+            public void onFailure(@NonNull Call<Delegate> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(),
                         "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 refreshLayout.setRefreshing(false);
@@ -258,10 +259,10 @@ public class MyDelegateFragment extends Fragment {
     }
 
     private void revokeDelegate() {
-        Call<LUSSISResponse> call = LUSSISClient.getApiService().deleteDelegate(deptCode);
+        Call<LUSSISResponse> call = LUSSISClient.getApiService().deleteDelegate(currentDelegate);
         call.enqueue(new Callback<LUSSISResponse>() {
             @Override
-            public void onResponse(Call<LUSSISResponse> call, Response<LUSSISResponse> response) {
+            public void onResponse(@NonNull Call<LUSSISResponse> call, @NonNull Response<LUSSISResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     currentDelegate = null;
@@ -274,7 +275,7 @@ public class MyDelegateFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<LUSSISResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<LUSSISResponse> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(),
                         "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 refreshLayout.setRefreshing(false);

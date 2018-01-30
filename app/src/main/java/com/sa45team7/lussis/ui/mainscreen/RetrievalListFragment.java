@@ -39,7 +39,7 @@ import static android.app.Activity.RESULT_OK;
 import static com.sa45team7.lussis.ui.dialogs.AdjustDialog.REQUEST_ADJUST;
 
 /**
- * A simple {@link Fragment} subclass.
+ * {@link Fragment} shows the list of items to be retrieved.
  */
 public class RetrievalListFragment extends Fragment
         implements RetrievalAdapter.OnRetrievalListInteractionListener {

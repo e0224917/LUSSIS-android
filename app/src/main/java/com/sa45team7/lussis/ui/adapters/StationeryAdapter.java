@@ -1,6 +1,5 @@
 package com.sa45team7.lussis.ui.adapters;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +8,8 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.sa45team7.lussis.R;
 import com.sa45team7.lussis.rest.model.Stationery;
-import com.sa45team7.lussis.ui.detailsscren.StationeryDetailActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +17,7 @@ import java.util.List;
 
 /**
  * Created by nhatton on 1/26/18.
+ * Adapter used for showing stationeries
  */
 
 public class StationeryAdapter extends RecyclerView.Adapter<StationeryAdapter.StationeryHolder>
@@ -100,6 +98,9 @@ public class StationeryAdapter extends RecyclerView.Adapter<StationeryAdapter.St
         }
     }
 
+    /**
+     * Filter class used for filtering stationery based on category
+     */
     private class CategoryFilter extends Filter {
 
         @Override

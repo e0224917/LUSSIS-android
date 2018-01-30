@@ -34,7 +34,6 @@
             android:label="Scan to Acknowledge"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.mainscreen.BaseActivity" />
-        <activity android:name=".ui.detailsscren.MainActivity" />
         <activity
             android:name=".ui.detailsscren.GenerateQRActivity"
             android:label="Disbursement Detail"

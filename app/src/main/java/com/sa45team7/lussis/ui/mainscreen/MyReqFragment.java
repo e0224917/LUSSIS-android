@@ -25,7 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * A simple {@link Fragment} subclass.
+ * {@link Fragment} shows the requisitions history from current user
  */
 public class MyReqFragment extends Fragment {
 

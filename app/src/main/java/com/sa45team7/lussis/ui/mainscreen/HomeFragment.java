@@ -18,7 +18,7 @@ import com.sa45team7.lussis.ui.adapters.HomeAdapter;
 import java.util.ArrayList;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A {@link Fragment} shows the list of features available as a grid view
  * Activities that contain this fragment must implement the
  * {@link OnHomeFragmentInteractionListener} interface
  * to handle interaction events.
@@ -44,10 +44,10 @@ public class HomeFragment extends Fragment {
         for (int i = 1; i < menu.size() - 1; i++) {
             list.add(menu.getItem(i));
         }
-        for (int j = menu.size(); j < 7; j++) {
+        for (int j = menu.size(); j <= 6; j++) {
             list.add(null);
         }
-        list.add(menu.getItem(menu.size()-1));
+        list.add(menu.getItem(menu.size() - 1));
 
         final HomeAdapter adapter = new HomeAdapter(getContext(), R.layout.grid_item, list);
 

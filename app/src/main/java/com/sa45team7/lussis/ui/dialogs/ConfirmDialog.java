@@ -18,6 +18,7 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 /**
  * Created by nhatton on 1/24/18.
+ * Dialog to confirm requisition approval
  */
 
 public class ConfirmDialog extends DialogFragment {

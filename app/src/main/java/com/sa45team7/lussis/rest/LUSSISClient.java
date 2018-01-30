@@ -19,6 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by nhatton on 1/17/18.
+ * Service class to make http request
  */
 
 public class LUSSISClient {
@@ -42,6 +43,7 @@ public class LUSSISClient {
 
     private static Retrofit getRetrofitObj() {
         try {
+            //Remove the ssl verification on the phone side
             // Create a trust manager that does not validate certificate chains
             final X509TrustManager trustManager = new X509TrustManager() {
                 @Override
@@ -96,6 +98,10 @@ public class LUSSISClient {
         return getRetrofitInstance().create(LUSSISService.class);
     }
 
+    /**
+     * Change the default IP address for server
+     * @param address server IP address
+     */
     public static void setIp(String address) {
         ROOT_URL = "https://" + address + "/LUSSIS/api/";
         retrofit = getRetrofitObj();

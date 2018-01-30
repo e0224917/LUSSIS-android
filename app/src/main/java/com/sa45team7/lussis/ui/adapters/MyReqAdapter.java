@@ -19,6 +19,7 @@ import java.util.Objects;
 
 /**
  * Created by nhatton on 1/23/18.
+ * Adapter used for showing requisitions made by current user
  */
 
 public class MyReqAdapter extends RecyclerView.Adapter<MyReqAdapter.MyReqHolder> {

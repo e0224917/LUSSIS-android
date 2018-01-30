@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * Created by nhatton on 1/23/18.
+ * Adapter used for displaying list of upcoming disbursement
  */
 
 public class DisbursementAdapter extends RecyclerView.Adapter<DisbursementAdapter.DisbursementHolder> {

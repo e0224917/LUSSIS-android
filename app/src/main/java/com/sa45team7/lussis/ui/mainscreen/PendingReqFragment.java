@@ -31,6 +31,9 @@ import retrofit2.Response;
 import static android.app.Activity.RESULT_OK;
 import static com.sa45team7.lussis.ui.dialogs.ConfirmDialog.REQUEST_CONFIRM;
 
+/**
+ * {@link Fragment} shows the pending requisitions need to be approved
+ */
 public class PendingReqFragment extends Fragment
         implements PendingReqAdapter.OnPendingReqListInteractionListener {
 

@@ -6,6 +6,7 @@ import java.util.Date;
 
 /**
  * Created by nhatton on 1/22/18.
+ * Model class for Delegate
  */
 
 public class Delegate {

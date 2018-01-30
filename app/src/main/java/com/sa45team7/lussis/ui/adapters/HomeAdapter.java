@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 /**
  * Created by nhatton on 1/25/18.
+ * Adapter used for showing panel icons in Home screen
  */
 
 public class HomeAdapter extends ArrayAdapter<MenuItem> {

@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Created by nhatton on 1/22/18.
+ * Adapter used for showing details in a requisition
  */
 
 public class ReqDetailAdapter extends RecyclerView.Adapter<ReqDetailAdapter.ReqDetailHolder> {

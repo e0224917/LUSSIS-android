@@ -26,7 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment shows the list of upcoming disbursements
  */
 public class DisbursementsFragment extends Fragment implements DisbursementAdapter.OnDisbursementListInteractionListener {
 

@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 
 /**
  * Created by nhatton on 1/17/18.
+ * Util class to check internet connection
  */
 
 public class InternetConnection {

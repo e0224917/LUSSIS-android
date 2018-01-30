@@ -12,7 +12,8 @@ import org.json.JSONException;
 import static com.sa45team7.lussis.LUSSISApplication.getAppContext;
 
 /**
- * Created by nhatton on 1/17/18.
+ * Created by Ton That Minh Nhat on 1/17/18.
+ * Helper class to get current logged-in user information
  */
 
 public class UserManager {

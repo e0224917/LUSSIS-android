@@ -29,7 +29,7 @@ import retrofit2.Response;
 import static android.app.Activity.RESULT_OK;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment shows the upcoming disbursement with the location and time
  */
 public class CollectionPointFragment extends Fragment {
 

@@ -39,7 +39,7 @@ import static android.app.Activity.RESULT_OK;
 import static com.sa45team7.lussis.ui.dialogs.NewRequisitionDialog.REQUEST_NEW_REQUISITION;
 
 /**
- * A simple {@link Fragment} subclass.
+ * {@link Fragment} shows the list of stationeries.
  */
 public class StationeriesFragment extends Fragment implements StationeryAdapter.OnStationeryListInteractionListener {
 
