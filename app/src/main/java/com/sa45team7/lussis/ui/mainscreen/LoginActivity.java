@@ -166,6 +166,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
+        if (!email.contains("@")) email = email.concat("@logicuniversity.edu");
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
