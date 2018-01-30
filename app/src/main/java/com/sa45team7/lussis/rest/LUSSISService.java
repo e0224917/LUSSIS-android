@@ -63,6 +63,9 @@ public interface LUSSISService {
     @GET("Requisitions/Retrieval")
     Call<List<RetrievalItem>> getRetrievalList();
 
+    @POST("Requisitions/Create")
+    Call<LUSSISResponse> createNewRequisition(@Body Requisition requisition);
+
     /**
      * Delegate API
      */

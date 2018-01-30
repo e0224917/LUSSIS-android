@@ -62,7 +62,7 @@ public class BaseActivity extends AppCompatActivity
                 break;
             case "staff":
                 if (employee.isDelegated())
-                    navigationView.inflateMenu(R.menu.staff_drawer);
+                    navigationView.inflateMenu(R.menu.staff_delegate_drawer);
                 else
                     navigationView.inflateMenu(R.menu.staff_drawer);
                 break;
@@ -138,6 +138,9 @@ public class BaseActivity extends AppCompatActivity
             case R.id.nav_scan:
                 Intent intent = new Intent(BaseActivity.this, ScanQRActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.nav_newreq:
+                displayFragment(new StationeriesFragment());
                 break;
             case R.id.nav_myreq:
                 displayFragment(new MyReqFragment());

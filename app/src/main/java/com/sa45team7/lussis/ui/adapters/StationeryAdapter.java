@@ -28,11 +28,14 @@ public class StationeryAdapter extends RecyclerView.Adapter<StationeryAdapter.St
     private List<Stationery> mValues;
     private List<Stationery> mOriginValues;
     private CategoryFilter categoryFilter;
+    private OnStationeryListInteractionListener mListener;
 
-    public StationeryAdapter(List<Stationery> list) {
+    public StationeryAdapter(List<Stationery> list, OnStationeryListInteractionListener listener) {
         mValues = list;
         Collections.sort(mValues);
         mOriginValues = mValues;
+
+        mListener = listener;
     }
 
     @Override
@@ -49,10 +52,7 @@ public class StationeryAdapter extends RecyclerView.Adapter<StationeryAdapter.St
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), StationeryDetailActivity.class);
-                String data = new Gson().toJson(holder.mItem);
-                intent.putExtra("stationery", data);
-                v.getContext().startActivity(intent);
+                if (mListener != null) mListener.onSelectStationery(holder.mItem);
             }
         });
     }
@@ -129,5 +129,9 @@ public class StationeryAdapter extends RecyclerView.Adapter<StationeryAdapter.St
             mValues = (ArrayList<Stationery>) results.values;
             notifyDataSetChanged();
         }
+    }
+
+    public interface OnStationeryListInteractionListener {
+        void onSelectStationery(Stationery item);
     }
 }

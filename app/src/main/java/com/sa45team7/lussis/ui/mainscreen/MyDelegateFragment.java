@@ -76,6 +76,7 @@ public class MyDelegateFragment extends Fragment {
         });
 
         empNameView = view.findViewById(R.id.employee_name_auto_complete);
+        empNameView.setThreshold(0);
         fetchEmployeeList();
 
         startDateLayout = view.findViewById(R.id.start_date_layout);

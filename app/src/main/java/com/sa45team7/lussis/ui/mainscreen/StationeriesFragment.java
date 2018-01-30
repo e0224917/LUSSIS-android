@@ -1,6 +1,7 @@
 package com.sa45team7.lussis.ui.mainscreen;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,10 +14,18 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.sa45team7.lussis.R;
+import com.sa45team7.lussis.helpers.UserManager;
 import com.sa45team7.lussis.rest.LUSSISClient;
+import com.sa45team7.lussis.rest.model.Employee;
+import com.sa45team7.lussis.rest.model.LUSSISResponse;
+import com.sa45team7.lussis.rest.model.Requisition;
+import com.sa45team7.lussis.rest.model.RequisitionDetail;
 import com.sa45team7.lussis.rest.model.Stationery;
 import com.sa45team7.lussis.ui.adapters.StationeryAdapter;
+import com.sa45team7.lussis.ui.detailsscren.StationeryDetailActivity;
+import com.sa45team7.lussis.ui.dialogs.NewRequisitionDialog;
 import com.sa45team7.lussis.utils.ErrorUtil;
 
 import java.util.ArrayList;
@@ -26,10 +35,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
+import static com.sa45team7.lussis.ui.dialogs.NewRequisitionDialog.REQUEST_NEW_REQUISITION;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StationeriesFragment extends Fragment {
+public class StationeriesFragment extends Fragment implements StationeryAdapter.OnStationeryListInteractionListener {
+
+    private Stationery selectedStationery;
 
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView stationeryListView;
@@ -57,7 +71,7 @@ public class StationeriesFragment extends Fragment {
         });
 
         stationeryListView = view.findViewById(R.id.stationery_list);
-        stationeryAdapter = new StationeryAdapter(new ArrayList<Stationery>());
+        stationeryAdapter = new StationeryAdapter(new ArrayList<Stationery>(), this);
         stationeryListView.setAdapter(stationeryAdapter);
 
         categorySpinner = view.findViewById(R.id.category_spinner);
@@ -101,13 +115,56 @@ public class StationeriesFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_NEW_REQUISITION && resultCode == RESULT_OK) {
+            Requisition requisition = new Requisition();
+            requisition.setStatus("inprocess");
+            requisition.setRequisitionEmp(UserManager.getInstance().getCurrentEmployee());
+            requisition.setRequestRemarks(data.getStringExtra("reason"));
+
+            RequisitionDetail detail = new RequisitionDetail();
+            detail.setItemNum(selectedStationery.getItemNum());
+            detail.setQuantity(data.getIntExtra("number", 0));
+            ArrayList<RequisitionDetail> list = new ArrayList<>();
+            list.add(detail);
+
+            requisition.setRequisitionDetails(list);
+
+            makeRequest(requisition);
+        }
+    }
+
+    @Override
+    public void onSelectStationery(Stationery item) {
+        selectedStationery = item;
+
+        Employee employee = UserManager.getInstance().getCurrentEmployee();
+
+        if (employee.getJobTitle().equals("staff") || employee.getJobTitle().equals("rep")) {
+            NewRequisitionDialog dialog = new NewRequisitionDialog();
+
+            Bundle bundle = new Bundle();
+            bundle.putString("uom", item.getUnitOfMeasure());
+            dialog.setArguments(bundle);
+            dialog.setTargetFragment(this, REQUEST_NEW_REQUISITION);
+            dialog.show(getFragmentManager(), "new_requisition_dialog");
+        } else if (employee.getJobTitle().equals("clerk")) {
+            Intent intent = new Intent(getContext(), StationeryDetailActivity.class);
+            String data = new Gson().toJson(item);
+            intent.putExtra("stationery", data);
+            getContext().startActivity(intent);
+        }
+
+    }
+
     private void getList() {
         Call<List<Stationery>> call = LUSSISClient.getApiService().getAllStationeries();
         call.enqueue(new Callback<List<Stationery>>() {
             @Override
             public void onResponse(Call<List<Stationery>> call, Response<List<Stationery>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    stationeryAdapter = new StationeryAdapter(response.body());
+                    stationeryAdapter = new StationeryAdapter(response.body(), StationeriesFragment.this);
                     stationeryListView.setAdapter(stationeryAdapter);
 
                 } else {
@@ -122,6 +179,28 @@ public class StationeriesFragment extends Fragment {
                 Toast.makeText(getContext(),
                         "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 refreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
+    private void makeRequest(Requisition requisition) {
+        Call<LUSSISResponse> call = LUSSISClient.getApiService().createNewRequisition(requisition);
+        call.enqueue(new Callback<LUSSISResponse>() {
+            @Override
+            public void onResponse(Call<LUSSISResponse> call, Response<LUSSISResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(getContext(),
+                            response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                    String error = ErrorUtil.parseError(response).getMessage();
+                    Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LUSSISResponse> call, Throwable t) {
+                Toast.makeText(getContext(),
+                        "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
