@@ -48,7 +48,7 @@ public class RetrievalAdapter extends RecyclerView.Adapter<RetrievalAdapter.Retr
         holder.mBinText.setText(holder.mItem.getBinNum());
         holder.mDescriptionText.setText(holder.mItem.getDescription());
         holder.mRequestQty.setText(String.valueOf(holder.mItem.getRequestedQty()));
-        holder.mAvailableQty.setText(String.valueOf(holder.mItem.getAvailableQty()));
+        holder.mAvailableQty.setText(String.valueOf(holder.mItem.getCurrentQty()));
         holder.mUomText.setText(holder.mItem.getUnitOfMeasure());
         holder.mAdjustButton.setOnClickListener(new View.OnClickListener() {
             @Override

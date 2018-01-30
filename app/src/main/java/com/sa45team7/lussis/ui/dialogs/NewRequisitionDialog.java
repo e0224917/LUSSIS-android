@@ -49,7 +49,9 @@ public class NewRequisitionDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 int number = Integer.parseInt(numberText.getText().toString());
-                numberText.setText(String.valueOf(number - 1));
+                if(number > 1){
+                    numberText.setText(String.valueOf(number - 1));
+                }
             }
         });
 

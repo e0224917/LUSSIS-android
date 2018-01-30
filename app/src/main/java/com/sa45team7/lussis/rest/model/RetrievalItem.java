@@ -23,8 +23,8 @@ public class RetrievalItem implements Comparable<RetrievalItem>{
     private String unitOfMeasure;
 
     //In stock
-    @SerializedName("AvailableQty")
-    private int availableQty;
+    @SerializedName("CurrentQty")
+    private int currentQty;
 
     @SerializedName("RequestedQty")
     private int requestedQty;
@@ -61,12 +61,12 @@ public class RetrievalItem implements Comparable<RetrievalItem>{
         this.unitOfMeasure = unitOfMeasure;
     }
 
-    public int getAvailableQty() {
-        return availableQty;
+    public int getCurrentQty() {
+        return currentQty;
     }
 
-    public void setAvailableQty(int availableQty) {
-        this.availableQty = availableQty;
+    public void setCurrentQty(int currentQty) {
+        this.currentQty = currentQty;
     }
 
     public int getRequestedQty() {
