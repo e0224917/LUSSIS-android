@@ -120,7 +120,8 @@ public class StationeriesFragment extends Fragment implements StationeryAdapter.
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_NEW_REQUISITION && resultCode == RESULT_OK) {
             Requisition requisition = new Requisition();
-            requisition.setStatus("inprocess");
+            requisition.setStatus("pending");
+            requisition.setRequisitionEmpNum(UserManager.getInstance().getCurrentEmployee().getEmpNum());
             requisition.setRequisitionEmp(UserManager.getInstance().getCurrentEmployee());
             requisition.setRequestRemarks(data.getStringExtra("reason"));
 

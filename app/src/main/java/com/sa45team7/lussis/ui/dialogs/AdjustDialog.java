@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.sa45team7.lussis.R;
+import com.sa45team7.lussis.ui.detailsscren.StationeryDetailActivity;
 
 import static android.app.Activity.RESULT_OK;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -82,7 +83,9 @@ public class AdjustDialog extends DialogFragment {
                     if (getTargetFragment() != null) {
                         getTargetFragment().onActivityResult(REQUEST_ADJUST, RESULT_OK, getActivity().getIntent());
                     } else {
-                        onActivityResult(REQUEST_ADJUST, RESULT_OK, getActivity().getIntent());
+                        getActivity().setResult(RESULT_OK);
+
+                        ((StationeryDetailActivity)getActivity()).onResult(REQUEST_ADJUST, RESULT_OK, getActivity().getIntent());
                     }
 
                     dismiss();

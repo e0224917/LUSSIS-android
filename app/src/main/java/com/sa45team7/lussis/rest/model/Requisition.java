@@ -11,10 +11,13 @@ import java.util.List;
  * Created by nhatton on 1/20/18.
  */
 
-public class Requisition implements Comparable<Requisition>{
+public class Requisition implements Comparable<Requisition> {
 
     @SerializedName("RequisitionId")
     private int requisitionId;
+
+    @SerializedName("RequisitionEmpNum")
+    private int requisitionEmpNum;
 
     @SerializedName("RequisitionEmp")
     private Employee requisitionEmp;
@@ -24,6 +27,9 @@ public class Requisition implements Comparable<Requisition>{
 
     @SerializedName("RequestRemarks")
     private String requestRemarks;
+
+    @SerializedName("ApprovalEmpNum")
+    private int approvalEmpNum;
 
     @SerializedName("ApprovalEmp")
     private Employee approvalEmp;
@@ -43,6 +49,14 @@ public class Requisition implements Comparable<Requisition>{
 
     public void setRequisitionId(int requisitionId) {
         this.requisitionId = requisitionId;
+    }
+
+    public int getRequisitionEmpNum() {
+        return requisitionEmpNum;
+    }
+
+    public void setRequisitionEmpNum(int requisitionEmpNum) {
+        this.requisitionEmpNum = requisitionEmpNum;
     }
 
     public Employee getRequisitionEmp() {
@@ -67,6 +81,14 @@ public class Requisition implements Comparable<Requisition>{
 
     public void setRequestRemarks(String requestRemarks) {
         this.requestRemarks = requestRemarks;
+    }
+
+    public int getApprovalEmpNum() {
+        return approvalEmpNum;
+    }
+
+    public void setApprovalEmpNum(int approvalEmpNum) {
+        this.approvalEmpNum = approvalEmpNum;
     }
 
     public Employee getApprovalEmp() {

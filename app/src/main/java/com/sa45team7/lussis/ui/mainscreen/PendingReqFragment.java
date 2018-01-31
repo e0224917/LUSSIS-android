@@ -166,6 +166,8 @@ public class PendingReqFragment extends Fragment
         selectedReqPosition = position;
         selectedReq = item;
         selectedReq.setStatus(status);
+        selectedReq.setRequisitionEmpNum(selectedReq.getRequisitionEmp().getEmpNum());
+        selectedReq.setApprovalEmpNum(UserManager.getInstance().getCurrentEmployee().getEmpNum());
         selectedReq.setApprovalEmp(UserManager.getInstance().getCurrentEmployee());
 
         ConfirmDialog dialog = new ConfirmDialog();

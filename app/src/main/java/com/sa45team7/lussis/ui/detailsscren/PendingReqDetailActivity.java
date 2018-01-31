@@ -1,6 +1,7 @@
 package com.sa45team7.lussis.ui.detailsscren;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,11 +12,11 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.sa45team7.lussis.R;
-import com.sa45team7.lussis.ui.adapters.ReqDetailAdapter;
 import com.sa45team7.lussis.helpers.UserManager;
 import com.sa45team7.lussis.rest.LUSSISClient;
 import com.sa45team7.lussis.rest.model.LUSSISResponse;
 import com.sa45team7.lussis.rest.model.Requisition;
+import com.sa45team7.lussis.ui.adapters.ReqDetailAdapter;
 import com.sa45team7.lussis.utils.DateConvertUtil;
 import com.sa45team7.lussis.utils.ErrorUtil;
 
@@ -77,14 +78,16 @@ public class PendingReqDetailActivity extends AppCompatActivity {
     }
 
     private void processRequisition(String status) {
+        requisition.setRequisitionEmpNum(requisition.getRequisitionEmp().getEmpNum());
         requisition.setApprovalRemarks(reasonText.getText().toString());
+        requisition.setApprovalEmpNum(UserManager.getInstance().getCurrentEmployee().getEmpNum());
         requisition.setApprovalEmp(UserManager.getInstance().getCurrentEmployee());
         requisition.setStatus(status);
 
         Call<LUSSISResponse> call = LUSSISClient.getApiService().processRequisition(requisition);
         call.enqueue(new Callback<LUSSISResponse>() {
             @Override
-            public void onResponse(Call<LUSSISResponse> call, Response<LUSSISResponse> response) {
+            public void onResponse(@NonNull Call<LUSSISResponse> call, @NonNull Response<LUSSISResponse> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(PendingReqDetailActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     setResult(RESULT_OK);
@@ -96,7 +99,7 @@ public class PendingReqDetailActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<LUSSISResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<LUSSISResponse> call, @NonNull Throwable t) {
                 Toast.makeText(PendingReqDetailActivity.this,
                         "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }

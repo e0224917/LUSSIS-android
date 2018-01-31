@@ -103,18 +103,6 @@ public class StationeryDetailActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_ADJUST && resultCode == RESULT_OK) {
-            Adjustment adjustment = new Adjustment();
-            adjustment.setItemNum(stationery.getItemNum());
-            adjustment.setQuantity(data.getIntExtra("quantity", 0));
-            adjustment.setReason(data.getStringExtra("reason"));
-            adjustment.setRequestEmpNum(UserManager.getInstance().getCurrentEmployee().getEmpNum());
-            adjustStock(adjustment);
-        }
-    }
-
     private void populateFields() {
         ((EditText) findViewById(R.id.itemNum)).setText(stationery.getItemNum());
         ((EditText) findViewById(R.id.itemDesc)).setText(stationery.getDescription());
@@ -151,4 +139,14 @@ public class StationeryDetailActivity extends AppCompatActivity {
         return index;
     }
 
+    public void onResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_ADJUST && resultCode == RESULT_OK) {
+            Adjustment adjustment = new Adjustment();
+            adjustment.setItemNum(stationery.getItemNum());
+            adjustment.setQuantity(data.getIntExtra("quantity", 0));
+            adjustment.setReason(data.getStringExtra("reason"));
+            adjustment.setRequestEmpNum(UserManager.getInstance().getCurrentEmployee().getEmpNum());
+            adjustStock(adjustment);
+        }
+    }
 }

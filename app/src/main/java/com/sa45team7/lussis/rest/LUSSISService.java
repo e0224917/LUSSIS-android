@@ -70,14 +70,14 @@ public interface LUSSISService {
     /**
      * Delegate API
      */
-    @GET("Delegate/{dept}")
+    @GET("Delegate/Get/{dept}")
     Call<Delegate> getDelegate(@Path("dept") String deptCode);
 
     @GET("Delegate/Employee/{dept}")
     Call<List<Employee>> getEmployeeListForDelegate(@Path("dept") String deptCode);
 
-    @POST("Delegate/Create")
-    Call<Delegate> postDelegate(@Body Delegate delegate);
+    @POST("Delegate/Create/{empnum}")
+    Call<Delegate> postDelegate(@Path("empnum") int empNum, @Body Delegate delegate);
 
     @POST("Delegate/Delete")
     Call<LUSSISResponse> deleteDelegate(@Body Delegate delegate);

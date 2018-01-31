@@ -233,8 +233,8 @@ public class MyDelegateFragment extends Fragment {
 
     private void assignNewDelegate() {
         updateCurrentDelegate();
-
-        Call<Delegate> call = LUSSISClient.getApiService().postDelegate(currentDelegate);
+        int empNum = currentDelegate.getEmployee().getEmpNum();
+        Call<Delegate> call = LUSSISClient.getApiService().postDelegate(empNum, currentDelegate);
         call.enqueue(new Callback<Delegate>() {
             @Override
             public void onResponse(@NonNull Call<Delegate> call, @NonNull Response<Delegate> response) {

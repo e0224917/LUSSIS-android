@@ -17,9 +17,14 @@
             android:orderInCategory="1"
             android:title="@string/action_newreq" />
         <item
+            android:id="@+id/nav_myreq"
+            android:icon="@drawable/ic_menu_my_list"
+            android:orderInCategory="2"
+            android:title="@string/action_myreq" />
+        <item
             android:id="@+id/nav_collection"
             android:icon="@drawable/ic_menu_collection"
-            android:orderInCategory="2"
+            android:orderInCategory="3"
             android:title="@string/action_collection" />
         <item
             android:id="@+id/nav_scan"
