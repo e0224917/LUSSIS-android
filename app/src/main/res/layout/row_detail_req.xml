@@ -26,9 +26,9 @@
 
     <TextView
         android:id="@+id/uom_text"
-        android:layout_width="40dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:text="Box"
+        android:text="Dozen"
         android:textAlignment="textEnd"
         android:textSize="16sp" />
 </LinearLayout>
