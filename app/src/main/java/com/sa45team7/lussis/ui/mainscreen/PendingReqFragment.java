@@ -2,6 +2,7 @@ package com.sa45team7.lussis.ui.mainscreen;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -108,7 +109,7 @@ public class PendingReqFragment extends Fragment
             Call<List<Requisition>> call = LUSSISClient.getApiService().getPendingRequisitions(deptCode);
             call.enqueue(new Callback<List<Requisition>>() {
                 @Override
-                public void onResponse(Call<List<Requisition>> call, Response<List<Requisition>> response) {
+                public void onResponse(@NonNull Call<List<Requisition>> call, @NonNull Response<List<Requisition>> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         pendingReqListView.setAdapter(new PendingReqAdapter(response.body(), PendingReqFragment.this));
                         checkListEmpty();
@@ -120,7 +121,7 @@ public class PendingReqFragment extends Fragment
                 }
 
                 @Override
-                public void onFailure(Call<List<Requisition>> call, Throwable t) {
+                public void onFailure(@NonNull Call<List<Requisition>> call, @NonNull Throwable t) {
                     Toast.makeText(getContext(),
                             "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     refreshLayout.setRefreshing(false);
@@ -133,7 +134,7 @@ public class PendingReqFragment extends Fragment
         Call<LUSSISResponse> call = LUSSISClient.getApiService().processRequisition(selectedReq);
         call.enqueue(new Callback<LUSSISResponse>() {
             @Override
-            public void onResponse(Call<LUSSISResponse> call, Response<LUSSISResponse> response) {
+            public void onResponse(@NonNull Call<LUSSISResponse> call, @NonNull Response<LUSSISResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     ((PendingReqAdapter) pendingReqListView.getAdapter()).removeItem(selectedReqPosition);
@@ -145,7 +146,7 @@ public class PendingReqFragment extends Fragment
             }
 
             @Override
-            public void onFailure(Call<LUSSISResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<LUSSISResponse> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

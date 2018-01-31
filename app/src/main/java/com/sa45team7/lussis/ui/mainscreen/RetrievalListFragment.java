@@ -3,6 +3,7 @@ package com.sa45team7.lussis.ui.mainscreen;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -49,7 +50,6 @@ public class RetrievalListFragment extends Fragment
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView retrievalListView;
     private Spinner binNumSpinner;
-    private SearchView searchView;
 
     private RetrievalAdapter retrievalAdapter;
 
@@ -89,7 +89,7 @@ public class RetrievalListFragment extends Fragment
             }
         });
 
-        searchView = view.findViewById(R.id.search_view);
+        SearchView searchView = view.findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -119,7 +119,7 @@ public class RetrievalListFragment extends Fragment
         Call<List<RetrievalItem>> call = LUSSISClient.getApiService().getRetrievalList();
         call.enqueue(new Callback<List<RetrievalItem>>() {
             @Override
-            public void onResponse(Call<List<RetrievalItem>> call, Response<List<RetrievalItem>> response) {
+            public void onResponse(@NonNull Call<List<RetrievalItem>> call, @NonNull Response<List<RetrievalItem>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     //populate retrieval list
                     retrievalAdapter = new RetrievalAdapter(response.body(),
@@ -134,7 +134,7 @@ public class RetrievalListFragment extends Fragment
                     ArrayList<String> binList = new ArrayList<>(bins);
                     Collections.sort(binList);
                     binList.add(0, "All");
-                    ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(getContext(),
+                    ArrayAdapter<String> sAdapter = new ArrayAdapter<>(getContext(),
                             android.R.layout.simple_spinner_item, binList);
                     binNumSpinner.setAdapter(sAdapter);
 
@@ -147,7 +147,7 @@ public class RetrievalListFragment extends Fragment
             }
 
             @Override
-            public void onFailure(Call<List<RetrievalItem>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<RetrievalItem>> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(),
                         "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 refreshLayout.setRefreshing(false);
@@ -159,7 +159,7 @@ public class RetrievalListFragment extends Fragment
         Call<LUSSISResponse> call = LUSSISClient.getApiService().stockAdjust(adjustment);
         call.enqueue(new Callback<LUSSISResponse>() {
             @Override
-            public void onResponse(Call<LUSSISResponse> call, Response<LUSSISResponse> response) {
+            public void onResponse(@NonNull Call<LUSSISResponse> call, @NonNull Response<LUSSISResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(getContext(),
                             response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -171,7 +171,7 @@ public class RetrievalListFragment extends Fragment
             }
 
             @Override
-            public void onFailure(Call<LUSSISResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<LUSSISResponse> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(),
                         "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }

@@ -26,7 +26,8 @@
         android:layout_height="70dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/logo_lussis"/>
+        android:contentDescription="@string/logo_desc"
+        android:src="@drawable/logo_lussis" />
 
     <ScrollView
         android:id="@+id/login_form"
@@ -110,5 +111,6 @@
         style="@style/Base.Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:focusable="false" />
 </RelativeLayout>

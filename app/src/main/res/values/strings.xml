@@ -85,6 +85,12 @@
     <string name="reason_optional_text">Reason (optional)</string>
     <string name="input_quantity_text">Input quantity</string>
     <string name="reason_required_text">Reason (required)</string>
+    <string name="hide_text">Hide</string>
+    <string name="show_text">Show</string>
+    <string name="logo_desc">App logo</string>
+    <string name="qr_scan_screen_desc">QR scan screen</string>
+    <string name="disbursment_id_text">Disbursment ID:</string>
+    <string name="empty_text">empty</string>
 
     <string-array name="stationery_category">
         <item>All</item>

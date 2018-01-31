@@ -49,7 +49,6 @@ public class StationeriesFragment extends Fragment implements StationeryAdapter.
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView stationeryListView;
     private Spinner categorySpinner;
-    private SearchView searchView;
 
     private StationeryAdapter stationeryAdapter;
 
@@ -90,7 +89,7 @@ public class StationeriesFragment extends Fragment implements StationeryAdapter.
             }
         });
 
-        searchView = view.findViewById(R.id.search_view);
+        SearchView searchView = view.findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

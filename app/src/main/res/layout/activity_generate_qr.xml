@@ -105,14 +105,16 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:text="@string/action_hide"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                tools:ignore="RelativeOverlap" />
         </RelativeLayout>
 
         <ImageView
             android:id="@+id/qr_image"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:contentDescription="@string/qr_scan_screen_desc" />
 
         <LinearLayout
             android:layout_width="match_parent"

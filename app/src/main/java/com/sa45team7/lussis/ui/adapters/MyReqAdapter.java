@@ -84,7 +84,7 @@ public class MyReqAdapter extends RecyclerView.Adapter<MyReqAdapter.MyReqHolder>
         return mValues.size();
     }
 
-    public class MyReqHolder extends RecyclerView.ViewHolder {
+    class MyReqHolder extends RecyclerView.ViewHolder {
         final View mView;
         final TextView mReqDateText;
         final TextView mReqRemarkText;
@@ -92,7 +92,7 @@ public class MyReqAdapter extends RecyclerView.Adapter<MyReqAdapter.MyReqHolder>
         final TextView mApprovalRemarkText;
         Requisition mItem;
 
-        public MyReqHolder(View view) {
+        MyReqHolder(View view) {
             super(view);
             mView = view;
             mReqDateText = view.findViewById(R.id.req_date_text);

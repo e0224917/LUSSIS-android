@@ -39,7 +39,7 @@ public class DisbursementAdapter extends RecyclerView.Adapter<DisbursementAdapte
     public void onBindViewHolder(final DisbursementHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mDeptText.setText(holder.mItem.getDepartmentName());
-        holder.mPlaceText.setText("At: " + holder.mItem.getCollectionPoint());
+        holder.mPlaceText.setText(String.format("At: %s", holder.mItem.getCollectionPoint()));
 
         String date = DateConvertUtil.convertForDetail(holder.mItem.getCollectionDate());
         holder.mDateText.setText(date);

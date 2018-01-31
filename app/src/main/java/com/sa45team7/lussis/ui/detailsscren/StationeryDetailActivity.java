@@ -83,7 +83,7 @@ public class StationeryDetailActivity extends AppCompatActivity {
         Call<LUSSISResponse> call = LUSSISClient.getApiService().stockAdjust(adjustment);
         call.enqueue(new Callback<LUSSISResponse>() {
             @Override
-            public void onResponse(Call<LUSSISResponse> call, Response<LUSSISResponse> response) {
+            public void onResponse(@NonNull Call<LUSSISResponse> call, @NonNull Response<LUSSISResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(StationeryDetailActivity.this,
                             response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -96,7 +96,7 @@ public class StationeryDetailActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<LUSSISResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<LUSSISResponse> call, @NonNull Throwable t) {
                 Toast.makeText(StationeryDetailActivity.this,
                         "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }

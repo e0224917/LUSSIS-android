@@ -16,8 +16,9 @@
         android:id="@+id/employee_image"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:background="@drawable/bg_req"
+        android:contentDescription="@string/logo_desc"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
         app:srcCompat="@drawable/logo_lussis" />
 
     <TextView
@@ -30,7 +31,6 @@
     <TextView
         android:id="@+id/employee_role"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="android.studio@android.com" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

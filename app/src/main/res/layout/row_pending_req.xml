@@ -19,7 +19,6 @@
         android:layout_marginTop="18dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="By Nathan"
         android:textColor="@color/colorBlack"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -33,7 +32,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="148dp"
         android:layout_marginTop="24dp"
-        android:text="Jan 10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -94,7 +92,6 @@
         android:layout_marginTop="12dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="For fun"
         app:layout_constraintEnd_toStartOf="@+id/approve_button_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/request_name_text" />

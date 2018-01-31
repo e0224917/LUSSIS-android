@@ -28,7 +28,6 @@ public class GenerateQRActivity extends AppCompatActivity {
     private Disbursement disbursement;
     private ImageView qrView;
     private Button toggleButton;
-    private RecyclerView stationeryListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +69,7 @@ public class GenerateQRActivity extends AppCompatActivity {
             }
         });
 
-        stationeryListView = findViewById(R.id.stationery_list_view);
+        RecyclerView stationeryListView = findViewById(R.id.stationery_list_view);
         ReqDetailAdapter adapter = new ReqDetailAdapter(disbursement.getDisbursementDetails());
         stationeryListView.setAdapter(adapter);
     }
@@ -78,10 +77,10 @@ public class GenerateQRActivity extends AppCompatActivity {
     private void toggle() {
         if (qrView.getVisibility() == View.GONE) {
             expand(qrView);
-            toggleButton.setText("Hide");
+            toggleButton.setText(R.string.hide_text);
         } else {
             collapse(qrView);
-            toggleButton.setText("Show");
+            toggleButton.setText(R.string.show_text);
         }
     }
 

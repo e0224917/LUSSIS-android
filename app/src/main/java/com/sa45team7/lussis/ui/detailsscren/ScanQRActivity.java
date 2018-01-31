@@ -40,7 +40,6 @@ public class ScanQRActivity extends AppCompatActivity {
 
     private static final int REQUEST_CAMERA = 200;
     private SurfaceView cameraView;
-    private BarcodeDetector barcode;
     private CameraSource cameraSource;
     private TextView resultText;
     private String scanResult;
@@ -107,7 +106,7 @@ public class ScanQRActivity extends AppCompatActivity {
         cameraView = findViewById(R.id.qr_scanner);
         cameraView.setZOrderMediaOverlay(true);
 
-        barcode = new BarcodeDetector.Builder(this)
+        BarcodeDetector barcode = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.QR_CODE)
                 .build();
 
@@ -187,7 +186,7 @@ public class ScanQRActivity extends AppCompatActivity {
         Call<LUSSISResponse> call = LUSSISClient.getApiService().acknowledge(disbursementId, employee);
         call.enqueue(new Callback<LUSSISResponse>() {
             @Override
-            public void onResponse(Call<LUSSISResponse> call, Response<LUSSISResponse> response) {
+            public void onResponse(@NonNull Call<LUSSISResponse> call, @NonNull Response<LUSSISResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(ScanQRActivity.this,
                             response.message(), Toast.LENGTH_SHORT).show();
@@ -200,7 +199,7 @@ public class ScanQRActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<LUSSISResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<LUSSISResponse> call, @NonNull Throwable t) {
                 Toast.makeText(ScanQRActivity.this,
                         "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -211,7 +210,7 @@ public class ScanQRActivity extends AppCompatActivity {
         Call<Disbursement> call = LUSSISClient.getApiService().getDisbursementById(id);
         call.enqueue(new Callback<Disbursement>() {
             @Override
-            public void onResponse(Call<Disbursement> call, Response<Disbursement> response) {
+            public void onResponse(@NonNull Call<Disbursement> call, @NonNull Response<Disbursement> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     ReqDetailAdapter adapter = new ReqDetailAdapter(response.body().getDisbursementDetails());
                     disDetailList.setAdapter(adapter);
@@ -222,7 +221,7 @@ public class ScanQRActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Disbursement> call, Throwable t) {
+            public void onFailure(@NonNull Call<Disbursement> call, @NonNull Throwable t) {
                 Toast.makeText(ScanQRActivity.this,
                         "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }

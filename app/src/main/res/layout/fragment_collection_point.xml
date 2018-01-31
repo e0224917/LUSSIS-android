@@ -48,7 +48,6 @@
                         android:id="@+id/department_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Science Department"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -72,14 +71,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Thu 25 Jan"
                         android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/time_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="3:00pm"
                         android:textAlignment="textEnd"
                         android:textSize="20sp" />
                 </LinearLayout>
@@ -100,7 +97,6 @@
                         android:id="@+id/collection_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Science Department"
                         android:textSize="20sp" />
 
                 </LinearLayout>
@@ -144,9 +140,9 @@
             <FrameLayout
                 android:id="@+id/scan_button_layout"
                 android:layout_width="match_parent"
-                android:layout_margin="3dp"
                 android:layout_height="60dp"
                 android:layout_gravity="bottom"
+                android:layout_margin="3dp"
                 android:background="@color/colorGreen">
 
                 <android.support.v7.widget.AppCompatButton

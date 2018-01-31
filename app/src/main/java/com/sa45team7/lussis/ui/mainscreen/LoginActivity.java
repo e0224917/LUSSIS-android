@@ -46,8 +46,8 @@ public class LoginActivity extends AppCompatActivity {
     private View mLoginFormView;
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
-            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
-                    "\\@" +
+            "[a-zA-Z0-9+._%\\-]{1,256}" +
+                    "@" +
                     "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
                     "(" +
                     "\\." +
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         // Set up the login form.
         mEmailView = findViewById(R.id.email);
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
         Call<LUSSISResponse> call = LUSSISClient.getApiService().forgot(email);
         call.enqueue(new Callback<LUSSISResponse>() {
             @Override
-            public void onResponse(Call<LUSSISResponse> call, Response<LUSSISResponse> response) {
+            public void onResponse(@NonNull Call<LUSSISResponse> call, @NonNull Response<LUSSISResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(LoginActivity.this,
                             response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -145,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<LUSSISResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<LUSSISResponse> call, @NonNull Throwable t) {
                 Toast.makeText(LoginActivity.this,
                         "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 showProgress(false);
@@ -217,7 +217,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
 
                         Toast.makeText(LoginActivity.this,
-                                "Login success " + response.body().getFirstName(), Toast.LENGTH_SHORT).show();
+                                "Login success ", Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
                         LUSSISError error = ErrorUtil.parseError(response);
