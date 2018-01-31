@@ -82,6 +82,9 @@ public class BaseActivity extends AppCompatActivity
         nameText.setText(employee.getFullName());
 
         String displayRole = role.substring(0, 1).toUpperCase() + role.substring(1);
+        if(UserManager.getInstance().getCurrentEmployee().isDelegated()){
+            displayRole = displayRole.concat(" (delegated)");
+        }
         TextView deptText = headerView.findViewById(R.id.employee_role);
         deptText.setText(displayRole);
 

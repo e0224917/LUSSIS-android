@@ -52,6 +52,8 @@ public class MyReqFragment extends Fragment {
 
         myReqListView = view.findViewById(R.id.my_req_list);
 
+        getMyRequisitions();
+
         return view;
     }
 

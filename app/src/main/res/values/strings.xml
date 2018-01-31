@@ -84,6 +84,7 @@
     <string name="reorder_level">Reorder Level</string>
     <string name="reason_optional_text">Reason (optional)</string>
     <string name="input_quantity_text">Input quantity</string>
+    <string name="reason_required_text">Reason (required)</string>
 
     <string-array name="stationery_category">
         <item>All</item>
