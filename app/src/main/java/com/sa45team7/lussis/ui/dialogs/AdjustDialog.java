@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.sa45team7.lussis.R;
 
@@ -55,20 +56,37 @@ public class AdjustDialog extends DialogFragment {
 
         Button okButton = view.findViewById(R.id.ok_button);
         okButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
+                numberText.setError(null);
+                reasonText.setError(null);
                 int quantity = Integer.parseInt(numberText.getText().toString());
-                getActivity().getIntent().putExtra("quantity", quantity);
-                getActivity().getIntent().putExtra("reason", reasonText.getText().toString());
 
-                if (getTargetFragment() != null) {
-                    getTargetFragment().onActivityResult(REQUEST_ADJUST, RESULT_OK, getActivity().getIntent());
-                } else {
-                    onActivityResult(REQUEST_ADJUST, RESULT_OK, getActivity().getIntent());
+                boolean isValid = true;
+                //Validating
+                if (quantity == 0) {
+                    Toast.makeText(getContext(), "Quantity cannot be zero", Toast.LENGTH_SHORT).show();
+                    numberText.setError("Quantity cannot be zero");
+                    isValid = false;
+                }
+                if(reasonText.getText().toString().trim().isEmpty()){
+                    Toast.makeText(getContext(), "Reason cannot be empty", Toast.LENGTH_SHORT).show();
+                    reasonText.setError("Reason cannot be empty");
+                    isValid = false;
                 }
 
-                dismiss();
+                if (isValid) {
+                    getActivity().getIntent().putExtra("quantity", quantity);
+                    getActivity().getIntent().putExtra("reason", reasonText.getText().toString());
+
+                    if (getTargetFragment() != null) {
+                        getTargetFragment().onActivityResult(REQUEST_ADJUST, RESULT_OK, getActivity().getIntent());
+                    } else {
+                        onActivityResult(REQUEST_ADJUST, RESULT_OK, getActivity().getIntent());
+                    }
+
+                    dismiss();
+                }
             }
         });
 
