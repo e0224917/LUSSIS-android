@@ -59,6 +59,7 @@ public class BaseActivity extends AppCompatActivity
                 navigationView.inflateMenu(R.menu.supervisor_drawer);
                 break;
             case "manager":
+                navigationView.inflateMenu(R.menu.manager_drawer);
                 break;
             case "staff":
                 if (employee.isDelegated())
