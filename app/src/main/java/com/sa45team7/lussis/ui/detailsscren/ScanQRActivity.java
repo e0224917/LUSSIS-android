@@ -104,6 +104,9 @@ public class ScanQRActivity extends AppCompatActivity {
     }
 
     private void initBarCodeDetector() {
+        cameraView = findViewById(R.id.qr_scanner);
+        cameraView.setZOrderMediaOverlay(true);
+
         barcode = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.QR_CODE)
                 .build();

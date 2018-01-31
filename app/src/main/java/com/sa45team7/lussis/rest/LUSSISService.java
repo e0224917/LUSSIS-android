@@ -76,10 +76,10 @@ public interface LUSSISService {
     @GET("Delegate/Employee/{dept}")
     Call<List<Employee>> getEmployeeListForDelegate(@Path("dept") String deptCode);
 
-    @POST("Delegate/")
+    @POST("Delegate/Create")
     Call<Delegate> postDelegate(@Body Delegate delegate);
 
-    @DELETE("Delegate/")
+    @POST("Delegate/Delete")
     Call<LUSSISResponse> deleteDelegate(@Body Delegate delegate);
 
     /**
