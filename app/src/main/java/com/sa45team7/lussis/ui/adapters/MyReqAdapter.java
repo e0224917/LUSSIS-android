@@ -9,13 +9,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sa45team7.lussis.R;
-import com.sa45team7.lussis.ui.detailsscren.PendingReqDetailActivity;
 import com.sa45team7.lussis.rest.model.Requisition;
+import com.sa45team7.lussis.ui.detailsscren.PendingReqDetailActivity;
 import com.sa45team7.lussis.utils.DateConvertUtil;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by nhatton on 1/23/18.
@@ -51,12 +50,20 @@ public class MyReqAdapter extends RecyclerView.Adapter<MyReqAdapter.MyReqHolder>
         Resources res = holder.mView.getContext().getResources();
         String status = holder.mItem.getStatus();
         holder.mReqStatusText.setText(status);
-        if (Objects.equals(status, "pending")) {
-            holder.mReqStatusText.setTextColor(res.getColor(R.color.colorYellow));
-        } else if (Objects.equals(status, "approved")) {
-            holder.mReqStatusText.setTextColor(res.getColor(R.color.colorGreen));
-        } else {
-            holder.mReqStatusText.setTextColor(res.getColor(R.color.colorRed));
+
+        switch (status) {
+            case "pending":
+                holder.mReqStatusText.setTextColor(res.getColor(R.color.colorYellow));
+                break;
+            case "approved":
+                holder.mReqStatusText.setTextColor(res.getColor(R.color.colorGreen));
+                break;
+            case "rejected":
+                holder.mReqStatusText.setTextColor(res.getColor(R.color.colorRed));
+                break;
+            default:
+                holder.mReqStatusText.setTextColor(res.getColor(R.color.colorBlack));
+                break;
         }
 
         String approvalRemark = holder.mItem.getApprovalRemarks() == null ? "" : holder.mItem.getApprovalRemarks();
