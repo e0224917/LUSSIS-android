@@ -164,7 +164,7 @@ public class MyDelegateFragment extends Fragment {
 
         call.enqueue(new Callback<Delegate>() {
             @Override
-            public void onResponse(Call<Delegate> call, Response<Delegate> response) {
+            public void onResponse(@NonNull Call<Delegate> call, @NonNull Response<Delegate> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     currentDelegate = response.body();
                     empNameView.setText(currentDelegate.getEmployee().getFullName());
@@ -185,7 +185,7 @@ public class MyDelegateFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Delegate> call, Throwable t) {
+            public void onFailure(@NonNull Call<Delegate> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(),
                         "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 refreshLayout.setRefreshing(false);

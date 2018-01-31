@@ -211,6 +211,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.isSuccessful() && response.body() != null) {
 
                         UserManager.getInstance().setCurrentEmployee(response.body());
+                        UserManager.getInstance().cacheUser();
 
                         Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
                         startActivity(intent);
