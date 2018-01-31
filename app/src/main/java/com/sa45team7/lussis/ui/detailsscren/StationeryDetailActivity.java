@@ -108,7 +108,7 @@ public class StationeryDetailActivity extends AppCompatActivity {
         if (requestCode == REQUEST_ADJUST && resultCode == RESULT_OK) {
             Adjustment adjustment = new Adjustment();
             adjustment.setItemNum(stationery.getItemNum());
-            adjustment.setQuantity(data.getIntExtra("number", 0));
+            adjustment.setQuantity(data.getIntExtra("quantity", 0));
             adjustment.setReason(data.getStringExtra("reason"));
             adjustment.setRequestEmpNum(UserManager.getInstance().getCurrentEmployee().getEmpNum());
             adjustStock(adjustment);

@@ -58,8 +58,8 @@ public class AdjustDialog extends DialogFragment {
 
             @Override
             public void onClick(View v) {
-                int number = Integer.parseInt(numberText.getText().toString());
-                getActivity().getIntent().putExtra("quantity", number);
+                int quantity = Integer.parseInt(numberText.getText().toString());
+                getActivity().getIntent().putExtra("quantity", quantity);
                 getActivity().getIntent().putExtra("reason", reasonText.getText().toString());
 
                 if (getTargetFragment() != null) {

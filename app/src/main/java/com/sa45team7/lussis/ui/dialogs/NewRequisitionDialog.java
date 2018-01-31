@@ -73,8 +73,8 @@ public class NewRequisitionDialog extends DialogFragment {
                     Toast.makeText(getContext(),
                             "Delegated staff cannot make request", Toast.LENGTH_SHORT).show();
                 } else {
-                    int number = Integer.parseInt(numberText.getText().toString());
-                    getActivity().getIntent().putExtra("quantity", number);
+                    int quantity = Integer.parseInt(numberText.getText().toString());
+                    getActivity().getIntent().putExtra("quantity", quantity);
                     getActivity().getIntent().putExtra("reason", reasonText.getText().toString());
 
                     if (getTargetFragment() != null) {

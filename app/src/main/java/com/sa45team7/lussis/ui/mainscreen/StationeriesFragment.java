@@ -3,6 +3,7 @@ package com.sa45team7.lussis.ui.mainscreen;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -125,7 +126,7 @@ public class StationeriesFragment extends Fragment implements StationeryAdapter.
 
             RequisitionDetail detail = new RequisitionDetail();
             detail.setItemNum(selectedStationery.getItemNum());
-            detail.setQuantity(data.getIntExtra("number", 0));
+            detail.setQuantity(data.getIntExtra("quantity", 0));
             ArrayList<RequisitionDetail> list = new ArrayList<>();
             list.add(detail);
 
@@ -162,7 +163,7 @@ public class StationeriesFragment extends Fragment implements StationeryAdapter.
         Call<List<Stationery>> call = LUSSISClient.getApiService().getAllStationeries();
         call.enqueue(new Callback<List<Stationery>>() {
             @Override
-            public void onResponse(Call<List<Stationery>> call, Response<List<Stationery>> response) {
+            public void onResponse(@NonNull Call<List<Stationery>> call, @NonNull Response<List<Stationery>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     stationeryAdapter = new StationeryAdapter(response.body(), StationeriesFragment.this);
                     stationeryListView.setAdapter(stationeryAdapter);
@@ -175,7 +176,7 @@ public class StationeriesFragment extends Fragment implements StationeryAdapter.
             }
 
             @Override
-            public void onFailure(Call<List<Stationery>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<Stationery>> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(),
                         "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 refreshLayout.setRefreshing(false);
@@ -187,7 +188,7 @@ public class StationeriesFragment extends Fragment implements StationeryAdapter.
         Call<LUSSISResponse> call = LUSSISClient.getApiService().createNewRequisition(requisition);
         call.enqueue(new Callback<LUSSISResponse>() {
             @Override
-            public void onResponse(Call<LUSSISResponse> call, Response<LUSSISResponse> response) {
+            public void onResponse(@NonNull Call<LUSSISResponse> call, @NonNull Response<LUSSISResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(getContext(),
                             response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -198,7 +199,7 @@ public class StationeriesFragment extends Fragment implements StationeryAdapter.
             }
 
             @Override
-            public void onFailure(Call<LUSSISResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<LUSSISResponse> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(),
                         "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
