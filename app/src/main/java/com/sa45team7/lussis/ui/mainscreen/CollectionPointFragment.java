@@ -105,17 +105,18 @@ public class CollectionPointFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     currentDisbursement = response.body();
 
-                    departmentText.setText(currentDisbursement.getDepartmentName());
+                    if (currentDisbursement != null) {
+                        departmentText.setText(currentDisbursement.getDepartmentName());
+                        String date = DateConvertUtil.convertForDetail(currentDisbursement.getCollectionDate());
+                        dateText.setText(date);
 
-                    String date = DateConvertUtil.convertForDetail(currentDisbursement.getCollectionDate());
-                    dateText.setText(date);
+                        timeText.setText(currentDisbursement.getCollectionTime());
 
-                    timeText.setText(currentDisbursement.getCollectionTime());
+                        collectionName.setText(currentDisbursement.getCollectionPoint());
 
-                    collectionName.setText(currentDisbursement.getCollectionPoint());
-
-                    ReqDetailAdapter adapter = new ReqDetailAdapter(currentDisbursement.getDisbursementDetails());
-                    disDetailListView.setAdapter(adapter);
+                        ReqDetailAdapter adapter = new ReqDetailAdapter(currentDisbursement.getDisbursementDetails());
+                        disDetailListView.setAdapter(adapter);
+                    }
 
                 } else {
                     if(response.code() == 404){
