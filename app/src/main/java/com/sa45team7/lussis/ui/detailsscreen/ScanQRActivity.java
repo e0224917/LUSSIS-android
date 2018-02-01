@@ -1,4 +1,4 @@
-package com.sa45team7.lussis.ui.detailsscren;
+package com.sa45team7.lussis.ui.detailsscreen;
 
 import android.Manifest;
 import android.content.Intent;
@@ -22,12 +22,11 @@ import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.sa45team7.lussis.R;
-import com.sa45team7.lussis.rest.model.Employee;
-import com.sa45team7.lussis.ui.adapters.ReqDetailAdapter;
 import com.sa45team7.lussis.helpers.UserManager;
 import com.sa45team7.lussis.rest.LUSSISClient;
 import com.sa45team7.lussis.rest.model.Disbursement;
 import com.sa45team7.lussis.rest.model.LUSSISResponse;
+import com.sa45team7.lussis.ui.adapters.ReqDetailAdapter;
 import com.sa45team7.lussis.utils.ErrorUtil;
 
 import java.io.IOException;
@@ -170,7 +169,7 @@ public class ScanQRActivity extends AppCompatActivity {
                         public void run() {
                             scanResult = barcodes.valueAt(0).rawValue;
 
-                            cameraSource.release();
+                            if (cameraSource != null) cameraSource.release();
                         }
                     });
 
@@ -181,9 +180,9 @@ public class ScanQRActivity extends AppCompatActivity {
 
     private void acknowledge(int disbursementId) {
 
-        Employee employee = UserManager.getInstance().getCurrentEmployee();
+        int empNum = UserManager.getInstance().getCurrentEmployee().getEmpNum();
 
-        Call<LUSSISResponse> call = LUSSISClient.getApiService().acknowledge(disbursementId, employee);
+        Call<LUSSISResponse> call = LUSSISClient.getApiService().acknowledge(disbursementId, empNum);
         call.enqueue(new Callback<LUSSISResponse>() {
             @Override
             public void onResponse(@NonNull Call<LUSSISResponse> call, @NonNull Response<LUSSISResponse> response) {

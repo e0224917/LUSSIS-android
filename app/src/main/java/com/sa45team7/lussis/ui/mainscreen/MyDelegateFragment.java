@@ -28,6 +28,7 @@ import com.sa45team7.lussis.rest.model.LUSSISResponse;
 import com.sa45team7.lussis.utils.DateConvertUtil;
 import com.sa45team7.lussis.utils.ErrorUtil;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -54,6 +55,8 @@ public class MyDelegateFragment extends Fragment {
     private Calendar endCalendar = Calendar.getInstance();
     private Button assignButton;
     private Button revokeButton;
+
+    private List<Employee> employees = new ArrayList<>();
 
     private Delegate currentDelegate;
 
@@ -120,8 +123,18 @@ public class MyDelegateFragment extends Fragment {
             empNameView.setError(getString(R.string.error_field_required));
             isValid = false;
         } else if (chosenEmployee == null) {
-            empNameView.setError("Wrong employee name.");
-            isValid = false;
+            //Double check if employee name is in the employee list
+            String name = empNameView.getText().toString().toLowerCase();
+            for (Employee e: employees){
+                if(e.getFullName().toLowerCase().equals(name)){
+                    chosenEmployee = e;
+                    break;
+                }
+            }
+            if(chosenEmployee == null){
+                empNameView.setError("Wrong employee name.");
+                isValid = false;
+            }
         }
 
         if (startCalendar.after(endCalendar)) {
@@ -201,10 +214,10 @@ public class MyDelegateFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<List<Employee>> call, @NonNull Response<List<Employee>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<Employee> list = response.body();
+                    employees = response.body();
 
                     ArrayAdapter<Employee> adapter = new ArrayAdapter<Employee>(getContext(),
-                            android.R.layout.simple_dropdown_item_1line, list);
+                            android.R.layout.simple_dropdown_item_1line, employees);
 
                     empNameView.setAdapter(adapter);
 

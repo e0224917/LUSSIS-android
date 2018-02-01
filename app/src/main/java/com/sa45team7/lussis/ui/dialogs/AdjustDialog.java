@@ -13,7 +13,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.sa45team7.lussis.R;
-import com.sa45team7.lussis.ui.detailsscren.StationeryDetailActivity;
+import com.sa45team7.lussis.ui.detailsscreen.StationeryDetailActivity;
 
 import static android.app.Activity.RESULT_OK;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;

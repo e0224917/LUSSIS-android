@@ -3,6 +3,7 @@ package com.sa45team7.lussis.ui.mainscreen;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sa45team7.lussis.R;
-import com.sa45team7.lussis.ui.detailsscren.ScanQRActivity;
+import com.sa45team7.lussis.ui.detailsscreen.ScanQRActivity;
 import com.sa45team7.lussis.ui.adapters.ReqDetailAdapter;
 import com.sa45team7.lussis.helpers.UserManager;
 import com.sa45team7.lussis.rest.LUSSISClient;
@@ -36,6 +37,7 @@ public class CollectionPointFragment extends Fragment {
     private static final int REQUEST_SCAN = 6;
     private RecyclerView disDetailListView;
     private SwipeRefreshLayout refreshLayout;
+    private TextView departmentText;
     private TextView dateText;
     private TextView timeText;
     private TextView collectionName;
@@ -62,6 +64,7 @@ public class CollectionPointFragment extends Fragment {
 
         containerLayout = view.findViewById(R.id.collection_container_layout);
 
+        departmentText = view.findViewById(R.id.department_text);
         dateText = view.findViewById(R.id.date_text);
         timeText = view.findViewById(R.id.time_text);
         collectionName = view.findViewById(R.id.collection_text);
@@ -98,9 +101,11 @@ public class CollectionPointFragment extends Fragment {
 
         call.enqueue(new Callback<Disbursement>() {
             @Override
-            public void onResponse(Call<Disbursement> call, Response<Disbursement> response) {
+            public void onResponse(@NonNull Call<Disbursement> call, @NonNull Response<Disbursement> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     currentDisbursement = response.body();
+
+                    departmentText.setText(currentDisbursement.getDepartmentName());
 
                     String date = DateConvertUtil.convertForDetail(currentDisbursement.getCollectionDate());
                     dateText.setText(date);
@@ -113,15 +118,19 @@ public class CollectionPointFragment extends Fragment {
                     disDetailListView.setAdapter(adapter);
 
                 } else {
-                    String error = ErrorUtil.parseError(response).getMessage();
-                    Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+                    if(response.code() == 404){
+                        Toast.makeText(getContext(), "No upcoming collection", Toast.LENGTH_SHORT).show();
+                    } else {
+                        String error = ErrorUtil.parseError(response).getMessage();
+                        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+                    }
                 }
                 checkCollectionEmpty();
                 refreshLayout.setRefreshing(false);
             }
 
             @Override
-            public void onFailure(Call<Disbursement> call, Throwable t) {
+            public void onFailure(@NonNull Call<Disbursement> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(),
                         "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 refreshLayout.setRefreshing(false);

@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.sa45team7.lussis.R;
 import com.sa45team7.lussis.helpers.UserManager;
-import com.sa45team7.lussis.ui.detailsscren.ScanQRActivity;
+import com.sa45team7.lussis.ui.detailsscreen.ScanQRActivity;
 import com.sa45team7.lussis.rest.model.Employee;
 
 public class BaseActivity extends AppCompatActivity

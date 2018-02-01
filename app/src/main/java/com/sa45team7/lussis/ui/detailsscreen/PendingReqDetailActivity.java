@@ -1,4 +1,4 @@
-package com.sa45team7.lussis.ui.detailsscren;
+package com.sa45team7.lussis.ui.detailsscreen;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

@@ -91,6 +91,8 @@
     <string name="qr_scan_screen_desc">QR scan screen</string>
     <string name="disbursment_id_text">Disbursment ID:</string>
     <string name="empty_text">empty</string>
+    <string name="text_reason">Reason:</string>
+    <string name="one_number">1</string>
 
     <string-array name="stationery_category">
         <item>All</item>

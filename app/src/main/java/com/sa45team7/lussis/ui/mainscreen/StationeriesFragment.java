@@ -25,7 +25,7 @@ import com.sa45team7.lussis.rest.model.Requisition;
 import com.sa45team7.lussis.rest.model.RequisitionDetail;
 import com.sa45team7.lussis.rest.model.Stationery;
 import com.sa45team7.lussis.ui.adapters.StationeryAdapter;
-import com.sa45team7.lussis.ui.detailsscren.StationeryDetailActivity;
+import com.sa45team7.lussis.ui.detailsscreen.StationeryDetailActivity;
 import com.sa45team7.lussis.ui.dialogs.NewRequisitionDialog;
 import com.sa45team7.lussis.utils.ErrorUtil;
 

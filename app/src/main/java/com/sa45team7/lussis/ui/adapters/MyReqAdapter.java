@@ -8,9 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.sa45team7.lussis.R;
 import com.sa45team7.lussis.rest.model.Requisition;
-import com.sa45team7.lussis.ui.detailsscren.PendingReqDetailActivity;
+import com.sa45team7.lussis.ui.detailsscreen.MyReqDetailActivity;
 import com.sa45team7.lussis.utils.DateConvertUtil;
 
 import java.util.Collections;
@@ -38,7 +39,7 @@ public class MyReqAdapter extends RecyclerView.Adapter<MyReqAdapter.MyReqHolder>
     }
 
     @Override
-    public void onBindViewHolder(MyReqHolder holder, int position) {
+    public void onBindViewHolder(final MyReqHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
         String date = DateConvertUtil.convertForRequisitions(holder.mItem.getRequisitionDate());
@@ -68,12 +69,12 @@ public class MyReqAdapter extends RecyclerView.Adapter<MyReqAdapter.MyReqHolder>
 
         String approvalRemark = holder.mItem.getApprovalRemarks() == null ? "" : holder.mItem.getApprovalRemarks();
         holder.mApprovalRemarkText.setText(approvalRemark);
-
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), PendingReqDetailActivity.class);
-                intent.putExtra("my_req", true);
+                Intent intent = new Intent(v.getContext(), MyReqDetailActivity.class);
+                String data = new Gson().toJson(holder.mItem);
+                intent.putExtra("requisition", data);
                 v.getContext().startActivity(intent);
             }
         });

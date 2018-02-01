@@ -18,6 +18,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by nhatton on 1/17/18.
@@ -92,8 +93,8 @@ public interface LUSSISService {
     @GET("Disbursement/Upcoming/{dept}")
     Call<Disbursement> getUpcomingCollection(@Path("dept") String deptCode);
 
-    @POST("Disbursement/Acknowledge/{id}")
-    Call<LUSSISResponse> acknowledge(@Path("id") int disbursementId, @Body Employee empNum);
+    @POST("Disbursement/Acknowledge/")
+    Call<LUSSISResponse> acknowledge(@Query("id") int disbursementId, @Query("empnum") int empNum);
 
     /**
      * Stock Adjustment API

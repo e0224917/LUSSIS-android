@@ -23,7 +23,7 @@ import com.sa45team7.lussis.rest.model.Adjustment;
 import com.sa45team7.lussis.rest.model.LUSSISResponse;
 import com.sa45team7.lussis.rest.model.RetrievalItem;
 import com.sa45team7.lussis.ui.adapters.RetrievalAdapter;
-import com.sa45team7.lussis.ui.detailsscren.StationeryDetailActivity;
+import com.sa45team7.lussis.ui.detailsscreen.StationeryDetailActivity;
 import com.sa45team7.lussis.ui.dialogs.AdjustDialog;
 import com.sa45team7.lussis.utils.ErrorUtil;
 

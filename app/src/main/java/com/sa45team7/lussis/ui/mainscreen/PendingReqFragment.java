@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.sa45team7.lussis.R;
-import com.sa45team7.lussis.ui.detailsscren.PendingReqDetailActivity;
+import com.sa45team7.lussis.ui.detailsscreen.PendingReqDetailActivity;
 import com.sa45team7.lussis.ui.adapters.PendingReqAdapter;
 import com.sa45team7.lussis.helpers.UserManager;
 import com.sa45team7.lussis.ui.dialogs.ConfirmDialog;
