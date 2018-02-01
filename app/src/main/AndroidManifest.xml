@@ -52,7 +52,11 @@
             android:label="Stationery Detail"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.mainscreen.BaseActivity" />
-        <activity android:name=".ui.detailsscreen.MyReqDetailActivity"></activity>
+        <activity
+            android:name=".ui.detailsscreen.MyReqDetailActivity"
+            android:label="Requisition Detail"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.mainscreen.BaseActivity"/>
     </application>
 
 </manifest>
