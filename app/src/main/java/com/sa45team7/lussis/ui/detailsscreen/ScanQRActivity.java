@@ -188,7 +188,7 @@ public class ScanQRActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<LUSSISResponse> call, @NonNull Response<LUSSISResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(ScanQRActivity.this,
-                            response.message(), Toast.LENGTH_SHORT).show();
+                            response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     setResult(RESULT_OK);
                     finish();
                 } else {
