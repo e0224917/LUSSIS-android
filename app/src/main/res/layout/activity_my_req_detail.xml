@@ -47,7 +47,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/text_reason"
             app:layout_constraintStart_toStartOf="@id/footer_parent"
-            app:layout_constraintTop_toBottomOf="@id/approval_emp_text" />
+            app:layout_constraintTop_toBottomOf="@+id/status_text" />
 
         <TextView
             android:id="@+id/reason_text"
@@ -58,7 +58,7 @@
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView9"
-            app:layout_constraintTop_toBottomOf="@id/approval_emp_text" />
+            app:layout_constraintTop_toBottomOf="@+id/status_text" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
