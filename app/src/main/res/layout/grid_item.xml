@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_req">
+    android:layout_height="match_parent">
 
     <LinearLayout
         style="@style/Base.Widget.AppCompat.Button.Borderless"
@@ -17,8 +16,7 @@
             android:id="@+id/action_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:backgroundTint="@color/colorPrimary"
-            android:foregroundTint="@color/colorPrimary"
+            android:backgroundTint="@color/colorWhite"
             android:scaleType="centerCrop" />
 
         <TextView
@@ -28,7 +26,9 @@
             android:minLines="2"
             android:text="Home"
             android:textAlignment="center"
-            android:textSize="22sp" />
+            android:textColor="@color/colorWhite"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
