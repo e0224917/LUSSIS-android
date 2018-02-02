@@ -17,7 +17,7 @@
         android:layout_height="200dp"
         android:layout_centerInParent="true"
         android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/colorPrimary"
+        android:theme="@style/AppTheme"
         android:visibility="gone" />
 
     <ImageView
@@ -42,6 +42,7 @@
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
+                android:theme="@style/AppTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -53,11 +54,13 @@
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true"
+                    android:textColorHighlight="@color/colorAccent"
                     app:backgroundTint="@color/colorPrimary" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:theme="@style/AppTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -72,6 +75,8 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true"
+                    android:textColorHighlight="@color/colorAccent"
+                    android:theme="@style/AppTheme"
                     app:backgroundTint="@color/colorPrimary" />
 
             </android.support.design.widget.TextInputLayout>

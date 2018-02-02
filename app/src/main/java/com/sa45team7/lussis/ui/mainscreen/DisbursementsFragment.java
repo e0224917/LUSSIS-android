@@ -3,6 +3,7 @@ package com.sa45team7.lussis.ui.mainscreen;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -70,7 +71,7 @@ public class DisbursementsFragment extends Fragment implements DisbursementAdapt
         Call<List<Disbursement>> call = LUSSISClient.getApiService().getDisbursements();
         call.enqueue(new Callback<List<Disbursement>>() {
             @Override
-            public void onResponse(Call<List<Disbursement>> call, Response<List<Disbursement>> response) {
+            public void onResponse(@NonNull Call<List<Disbursement>> call, @NonNull Response<List<Disbursement>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     DisbursementAdapter adapter = new DisbursementAdapter(response.body(),
                             DisbursementsFragment.this);
@@ -85,7 +86,7 @@ public class DisbursementsFragment extends Fragment implements DisbursementAdapt
             }
 
             @Override
-            public void onFailure(Call<List<Disbursement>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<Disbursement>> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(),
                         "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 refreshLayout.setRefreshing(false);
