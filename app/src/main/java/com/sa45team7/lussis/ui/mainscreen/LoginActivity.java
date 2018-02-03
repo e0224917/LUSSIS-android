@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         if (UserManager.getInstance().hasCurrentEmployee()) {
             Intent intent = new Intent(LoginActivity.this, BaseActivity.class);
             startActivity(intent);
+            finish();
         }
 
         // Set up the login form.
